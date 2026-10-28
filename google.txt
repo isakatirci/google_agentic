@@ -1,0 +1,97 @@
+Google released Free AI Agents Course. 
+
+Worth more than $10,000 bootcamps.
+
+Includes:
+→ Whitepapers
+→ Code samples
+→ Hands-on projects
+→ MCP
+→ Memory systems
+→ Production deployment
+-----
+
+Day 1 - Introduction to AI Agents
+
+Learn how AI agents:
+→ Plan
+→ Reason
+→ Take actions autonomously
+
+🔗 https://lnkd.in/dfQcgXjS
+
+Build Tutorial 1: https://lnkd.in/eTJ5Tb-5
+
+Build Tutorial 2: https://lnkd.in/e_6-p_7b
+
+
+Day 2 - Tools & MCP
+
+Connect agents with:
+→ APIs
+→ Software tools
+→ External systems using MCP
+
+🔗 https://lnkd.in/dn6u6prB
+
+Build Tutorial 1: https://lnkd.in/ey9ss5yz
+
+Build Tutorial 2: https://lnkd.in/eSiE2TZK
+
+
+Day 3 - Context Engineering & Memory
+
+Teach agents to:
+→ Remember conversations
+→ Maintain long-term context
+→ Learn across interactions
+
+🔗 https://lnkd.in/ddB-uFtm
+
+Build Tutorial 1: https://lnkd.in/eWdBKnXy
+
+Build Tutorial 2: https://lnkd.in/eKct9uxh
+
+
+Day 4 - Evaluation & Observability
+
+Learn how to:
+→ Debug agents
+→ Trace failures
+→ Evaluate outputs
+→ Improve reliability
+
+🔗 https://lnkd.in/dw3aQXB6
+
+Build Tutorial 1: https://lnkd.in/eBiP85JG
+
+Build Tutorial 2: https://lnkd.in/edC7qCBN
+
+
+Day 5 - Production-Ready Deployment
+
+Move from demos to production systems:
+→ Vertex AI deployment
+→ Multi-agent workflows
+→ Safety systems
+→ Scaling infrastructure
+
+🔗 https://lnkd.in/dBa_c8gj
+
+Build Tutorial 1: https://lnkd.in/e4w2NEgh
+
+Build Tutorial 2: https://lnkd.in/evCj_uu2
+
+
+Most people think AI agents are just prompts.
+
+Real AI agents are systems.
+
+This course explains the full stack properly.
+
+--------------
+
+ 👉 Join my free AI newsletter read by 2K+ professionals → aiforcareer.co
+
+
+♻️ Repost to help your network
