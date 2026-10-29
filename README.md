@@ -1,6 +1,6 @@
-# Google ve Kaggle'dan 5 Günlük Yapay Zeka Aracısı (AI Agent) Geliştirme Kursu
+# Google ve Kaggle'dan 5 Günlük `Agent` Geliştirme Kursu
 
-Bu depo, Google ve Kaggle iş birliğiyle hazırlanan beş günlük yapay zeka aracısı (`AI Agent`) geliştirme kursunun materyallerini ve kendi projenizde aynı adımları uygulamak için yazılmış `skill` dosyalarını bir araya getirmektedir. Amacımız, özellikle **junior geliştiricilere**, `AI Agent`'ları sıfırdan tasarlama, inşa etme, değerlendirme ve dağıtma süreçlerinde adım adım rehberlik etmek, modern `AI Agent` geliştirme pratiklerini ve Google'ın Ajan Geliştirme Kiti (`ADK`) gibi araçları tanıtarak onları sektördeki güncel `trend`lere hazırlamaktır.
+Bu depo, Google ve Kaggle iş birliğiyle hazırlanan beş günlük `agent` geliştirme kursunun materyallerini ve kendi projenizde aynı adımları uygulamak için yazılmış `skill` dosyalarını bir araya getirmektedir. Amacımız, özellikle **junior geliştiricilere**, `agent`'ları sıfırdan tasarlama, inşa etme, değerlendirme ve dağıtma süreçlerinde adım adım rehberlik etmek, modern `agent` geliştirme pratiklerini ve Google'ın Ajan Geliştirme Kiti (`ADK`) gibi araçları tanıtarak onları sektördeki güncel `trend`lere hazırlamaktır.
 
 İlk kez deniyorsanız önce aşağıdaki `skill` bölümünü okuyun. Kurs notları kavramı anlatır. `Skill`, o kavramı sizin projenizde tek bir iş olarak uygular.
 
@@ -80,11 +80,11 @@ Cevap geldiyse araca bakın. Araç çağrılmadıysa iki yer kontrol edilir. Ara
 
 #### 4. `/add-agent-tools`
 
-Kendi fonksiyonunuzu ekleyecekseniz bunu yazın. İlk turdaki hazır arama aracı yetiyorsa erteleyin.
+Kendi fonksiyonunuzu ekleyecekseniz bunu yazın. İlk turdaki hazır arama `tool`'u yetiyorsa erteleyin.
 
 Komut, `designing-agent-tools` `skill`'ini açar.
 
-`Skill` araç türünü seçtirir. Fonksiyon aracı, sizin Python fonksiyonunuzdur. `AgentTool`, bir uzman ajanı araç gibi çağırır. Uzun süren araç, kişi onayı veya yavaş iş için durur. MCP aracı, dış sunucunun aracıdır. OpenAPI aracı, bir OpenAPI belgesinden üretilir.
+`Skill` araç türünü seçtirir. Fonksiyon `tool`'u, sizin Python fonksiyonunuzdur. `AgentTool`, bir uzman `agent`'ı `tool` gibi çağırır. Uzun süren `tool`, kişi onayı veya yavaş iş için durur. MCP `tool`'u, dış sunucunun `tool`'udur. OpenAPI `tool`'u, bir OpenAPI belgesinden üretilir.
 
 Fonksiyonun tipi yazılır. Docstring, ne zaman çağrılacağını söyler. Dönüş ya `status: success` ya da `status: error` olur. Hata metni, modele sonraki adımı söyler. Geri alınması zor işte kişiye sorulur. Buna `HITL` denir. Onay, aynı çağrının devamıdır. Programı baştan çalıştırmak eski onayı getirmez. `Skill` içindeki `ResumabilityConfig` ve `invocation_id` bloğu bu yüzden durur.
 
@@ -92,7 +92,7 @@ Bitti sayılması için her aracın bir görevi, bir şeması, kısa bir sonucu 
 
 #### 5. `/connect-mcp`
 
-Araç sizin fonksiyonunuz değil de başka bir programın aracıysa bunu yazın. MCP, her sistem için ayrı istemci yazmamanız için ortak dildir.
+`Tool` sizin fonksiyonunuz değil de başka bir programın `tool`'uysa bunu yazın. MCP, her sistem için ayrı istemci yazmamanız için ortak dildir.
 
 Komut, `using-mcp` `skill`'ini açar.
 
@@ -216,7 +216,7 @@ Bu depo, öğrenme ve uygulama deneyiminizi zenginleştirecek çeşitli kaynakla
         *   **Day4:** Kalite, `Observability` (Gözlemlenebilirlik) ve `Evaluation` (Değerlendirme).
         *   **Day5:** `Agent-to-Agent Communication` (`A2A`) (Ajanlar Arası İletişim) ve `Deployment` (Dağıtım).
 *   **Ortak Terimler Sözlüğü (`GLOSSARY.md`):**
-    *   Yapay zeka aracıları dünyasında sıkça karşılaşılan ve bu kursta kullanılan anahtar `terim`lerin (`Agent`, `Model`, `Tool`, `Orchestration`, `Trajectory`, `Session`, `Event`, `State`, `Memory`, `Context Engineering`, `Compaction`, `AgentTool`, `Workflow agent`, `MCP`, `A2A`, `Agent card`, `Agent Ops`, `Eval set`, `Golden set`, `HITL` vb.) ayrıntılı, anlaşılır açıklamalarını içerir. Bu sözlük, kavramsal birliği sağlamak ve `terim`lerin doğru anlaşılmasını garanti etmek açısından kritik öneme sahiptir.
+    *   `Agent` dünyasında sıkça karşılaşılan ve bu kursta kullanılan anahtar `terim`lerin (`Agent`, `Model`, `Tool`, `Orchestration`, `Trajectory`, `Session`, `Event`, `State`, `Memory`, `Context Engineering`, `Compaction`, `AgentTool`, `Workflow agent`, `MCP`, `A2A`, `Agent card`, `Agent Ops`, `Eval set`, `Golden set`, `HITL` vb.) ayrıntılı, anlaşılır açıklamalarını içerir. Bu sözlük, kavramsal birliği sağlamak ve `terim`lerin doğru anlaşılmasını garanti etmek açısından kritik öneme sahiptir.
 *   **`Skills` (`.cursor/skills/`):**
     *   Kullanım, yukarıdaki **`Skills` nasıl kullanılır** bölümündedir. Orada on iki komut, her komutun açtığı dosya ve işin biteceği kontrol cümlesi vardır.
 *   **Paket kopyası (`repomix-output.md`):**
@@ -254,7 +254,7 @@ Bu projeyi yerel ortamınızda sorunsuz bir şekilde çalıştırmak ve kurs mat
     # veya set GOOGLE_API_KEY="buraya-anahtar" (Windows CMD)
     # veya $env:GOOGLE_API_KEY="buraya-anahtar" (Windows PowerShell)
     ```
-*   **Kaggle Not Defterleri İçin:** Kaggle ortamında çalışırken, not defterleri `API anahtar`ınızı `UserSecretsClient` aracı aracılığıyla güvenli bir şekilde okuyacak şekilde yapılandırılmıştır.
+*   **Kaggle Not Defterleri İçin:** Kaggle ortamında çalışırken, not defterleri `API anahtar`ınızı `UserSecretsClient` aracılığıyla güvenli bir şekilde okuyacak şekilde yapılandırılmıştır.
 
 ## Google ADK Rehberi ve En İyi Uygulamalar
 
@@ -268,30 +268,30 @@ Google `ADK` rehberi, `agent`'larınızı geliştirirken izlemeniz gereken önem
 *   **`Session Management` (Oturum Yönetimi):** `Prototip` aşamasındaki `session management` ile `üretim ortamı`ndaki (`production environment`) kalıcı ve güvenilir `session management` arasındaki farkları anlayın.
 *   **`Security Warning` (Güvenlik Uyarısı):** Kimlik doğrulama bilgisi içeren `URL`'leri ve diğer `gizli verileri` (`secrets`) her zaman `koruma` altına almanız gerektiğini unutmayın.
 
-## Yapay Zeka Aracısı Kavramlarına Derinlemesine Bakış
+## `Agent` Kavramlarına Derinlemesine Bakış
 
 Bu rehber, basit "tek turda metin üreten sohbet" uygulamaları ile "hedefe ulaşmak için `tool`'ları stratejik olarak çağıran ve sonuçları `değerlendiren`" gelişmiş yapay zeka `agent`'ları arasındaki temel farkı vurgular. Bir `AI Agent`'ın temel bileşenleri şunlardır:
 
-*   **Karar Veren `Model`:** Aracının "beynini" oluşturan, durumu analiz eden, hedefleri belirleyen ve eylemler planlayan temel yapıdır. Genellikle `büyük dil modelleri` (`LLM`'ler) kullanılır.
-*   **Araçlar (`Tools`):** Aracının belirli görevleri yerine getirmek için kullandığı dış işlevler veya `API`'lerdir (örneğin, `web search` yapma, `hesaplama` yapma, `veritabanı`na erişme, bir `e-posta` gönderme). Bu `tool`'lar, `agent`'ın dış dünya ile etkileşim kurmasını sağlar.
-*   **Orkestrasyon (`Orchestration`):** Aracının adımlarını, `tool` çağrılarını ve hedefe ulaşma stratejisini yöneten süreçtir. Bu, `agent`'ın hangi `tool`'u ne zaman kullanacağına karar vermesini, sonuçları yorumlamasını ve bir sonraki adıma geçmesini içerir.
+*   **Karar Veren `Model`:** `Agent`'ın "beynini" oluşturan, durumu analiz eden, hedefleri belirleyen ve eylemler planlayan temel yapıdır. Genellikle `büyük dil modelleri` (`LLM`'ler) kullanılır.
+*   **Araçlar (`Tools`):** `Agent`'ın belirli görevleri yerine getirmek için kullandığı dış işlevler veya `API`'lerdir (örneğin, `web search` yapma, `hesaplama` yapma, `veritabanı`na erişme, bir `e-posta` gönderme). Bu `tool`'lar, `agent`'ın dış dünya ile etkileşim kurmasını sağlar.
+*   **Orkestrasyon (`Orchestration`):** `Agent`'ın adımlarını, `tool` çağrılarını ve hedefe ulaşma stratejisini yöneten süreçtir. Bu, `agent`'ın hangi `tool`'u ne zaman kullanacağına karar vermesini, sonuçları yorumlamasını ve bir sonraki adıma geçmesini içerir.
 
 `GLOSSARY.md` dosyasında ayrıntılarıyla bulacağınız ek kavramlar:
 
-*   **Trajectory (`Yörünge`):** Bir aracının başlangıçtan hedefe ulaşana kadar gerçekleştirdiği tüm eylemlerin, gözlemlerin ve `state` (`durum`) değişikliklerinin kronolojik kaydıdır.
+*   **Trajectory (`Yörünge`):** Bir `agent`'ın başlangıçtan hedefe ulaşana kadar gerçekleştirdiği tüm eylemlerin, gözlemlerin ve `state` (`durum`) değişikliklerinin kronolojik kaydıdır.
 *   **Session (`Oturum`):** Bir kullanıcı ile `agent` arasındaki belirli bir etkileşim dizisidir. Her `session`'ın kendine özgü bir `bağlam`ı (`context`) ve `yaşam döngüsü` (`lifecycle`) vardır ve `agent`'ın geçmiş etkileşimleri hatırlamasını sağlar.
 *   **Event (`Olay`):** Bir `session` içinde meydana gelen önemli bir eylem veya `state` (`durum`) değişikliğidir (örneğin, bir kullanıcının mesaj göndermesi, bir `agent`'ın belirli bir `tool`'u çağırması, bir `agent`'ın bir görevi tamamlaması).
 *   **State (`Durum`):** Bir `agent`'ın belirli bir anda sahip olduğu tüm bilgiler ve özelliklerdir. Bu, `memory` (`hafıza`) içeriği, mevcut hedef, kullanılan `tool`'lar ve alınan kararlar gibi öğeleri içerebilir.
-*   **Memory (`Hafıza`):** Aracının geçmiş etkileşimlerden ve öğrendiklerinden bilgi depolama ve geri çağırma yeteneğidir. Kısa vadeli (`current conversation context`) ve uzun vadeli (`knowledge base`) `memory` türleri bulunur.
+*   **Memory (`Hafıza`):** `Agent`'ın geçmiş etkileşimlerden ve öğrendiklerinden bilgi depolama ve geri çağırma yeteneğidir. Kısa vadeli (`current conversation context`) ve uzun vadeli (`knowledge base`) `memory` türleri bulunur.
 *   **Context Engineering (`Bağlam Mühendisliği`):** Modele gönderilen `istem`in (`prompt`) ve ilgili bilgilerin, `model`in en iyi `performans`ı göstermesi ve doğru kararları alması için dikkatlice seçilmesi, organize edilmesi ve `optimize` edilmesi sürecidir.
 *   **Compaction (`Sıkıştırma`):** `Memory`'deki veya `bağlam`daki (`context`) gereksiz, tekrarlayan veya daha az önemli bilgilerin azaltılarak daha verimli hale getirilmesidir. Bu, `model`in `bağlam penceresi`ni (`context window`) aşmadan önemli bilgileri korumasına yardımcı olur.
-*   **AgentTool:** Gelişmiş bir kavram olup, bir yapay zeka aracısının, daha karmaşık bir görevi yerine getirmek için başka bir uzman `agent`'ı bir `tool` (araç) olarak kullanmasını ifade eder.
+*   **AgentTool:** Gelişmiş bir kavram olup, bir `agent`'ın, daha karmaşık bir görevi yerine getirmek için başka bir uzman `agent`'ı bir `tool` olarak kullanmasını ifade eder.
 *   **İş Akışı `Agent` Türleri:**
     *   `SequentialAgent` (`Sıralı Ajan`): Görevleri önceden belirlenmiş, sabit bir sırayla yürüten `agent`'lar. Her adım, bir önceki adımın sonucuna bağlıdır.
     *   **`ParallelAgent` (`Paralel Ajan`):** Birden fazla görevi veya alt görevi eş zamanlı olarak yürüten `agent`'lar. Bu, görevlerin birbirinden bağımsız olduğu durumlarda `performans`ı artırır.
     *   **`LoopAgent` (`Döngüsel Ajan`):** Belirli bir koşul karşılanana kadar görevleri veya adımları tekrar eden `agent`'lar. Genellikle bir hedefe ulaşana veya belirli bir `state` (`durum`) oluşana kadar kullanılır.
 *   **Model Bağlam Protokolü (`MCP`):** Farklı `servis`ler, `model`ler ve `tool`'lar arasında standartlaştırılmış bir iletişim kurarak, `agent` sistemlerinin farklı bileşenlerle daha kolay `entegre` edilmesini ve birlikte çalışmasını sağlayan bir `protokol`dür.
-*   **Ajanlar Arası İletişim (`A2A`):** Bir yapay zeka aracısının, daha karmaşık görevleri veya uzmanlık gerektiren durumları başka bir `agent`'a `devret`mesini (`delegate`) veya onunla iş birliği yapmasını ifade eder. Bu, `modüler` ve uzmanlaşmış `agent` sistemleri oluşturmaya olanak tanır.
+*   **Ajanlar Arası İletişim (`A2A`):** Bir `agent`'ın, daha karmaşık görevleri veya uzmanlık gerektiren durumları başka bir `agent`'a `devret`mesini (`delegate`) veya onunla iş birliği yapmasını ifade eder. Bu, `modüler` ve uzmanlaşmış `agent` sistemleri oluşturmaya olanak tanır.
 *   **Agent Card (`Ajan Kartı`):** Bir `agent`'ın yeteneklerini, sınırlamalarını, amaçlarını, mimarisini, kullanılan `model`leri, `tool`'ları ve sorumlu kullanım yönergelerini özetleyen kapsamlı bir bilgi kartıdır. `Şeffaflık` (`transparency`) ve yönetilebilirlik için önemlidir.
 *   **Agent Ops (`Ajan Operasyonları`):** `Agent`'ların `üretim ortamı`nda (`production environment`) izlenmesi (`monitoring`), yönetilmesi (`management`), sürdürülmesi (`maintenance`) ve `performans`larının `optimize` edilmesi ile ilgili `süreç`ler ve `tool`'lardır.
 *   **Eval Set (`Değerlendirme Seti`):** Bir `agent`'ın `performans`ını nesnel olarak ölçmek ve doğrulamak için kullanılan, gerçek dünya `senaryo`larını yansıtan özel olarak hazırlanmış `veri setleri`dir.
@@ -318,7 +318,7 @@ Bu gün, yapay zeka `agent`'larının ne olduğunu, nasıl çalıştığını ve
     *   **`Seviye 3 (Uzman Ajan Takımları)`:** Birden fazla uzmandan oluşan `agent`'ların (örneğin, bir `planlayıcı agent`, bir `araştırma agent`'ı, bir `kod yazma agent`'ı) bir araya gelerek işbirliği yaparak daha büyük hedeflere ulaşabildiği sistemler.
     *   **`Seviye 4 (Öz-Değişim Yeteneği)`:** `Agent`'ların kendi davranışlarını, kurallarını veya hatta `kod`larını dinamik olarak değiştirebildiği ileri seviye `agent`'lar. **Bu seviye, `ürün şablonları` (`product templates`) için genellikle önerilmez** çünkü `öngörülemezlik` (`unpredictability`), `güvenlik açıkları` (`security vulnerabilities`) ve `kontrol zorlukları` (`control challenges`) gibi yüksek `risk`ler barındırabilir.
 *   **Uygulamalı Çalışmalar:**
-    *   Günün not defterleri, ilk yapay zeka aracınızı kurmayı ve basit bir `arama tool`'u entegre etmeyi adım adım öğretir.
+    *   Günün not defterleri, ilk `agent`'ınızı kurmayı ve basit bir `arama tool`'u entegre etmeyi adım adım öğretir.
     *   Tek bir `agent` ile birden fazla `agent`'tan oluşan `takım yapıları` (`team structures`) arasındaki farkları, avantajlarını ve dezavantajlarını karşılaştırır.
     *   Sabit sıralı (`SequentialAgent`), paralel çalışma (`ParallelAgent`) ve döngüsel (`LoopAgent`) mimariler gibi farklı `agent iş akışı` (`agent workflow`) tasarımlarını uygulamalı olarak inceler.
 
