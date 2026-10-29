@@ -1,10 +1,10 @@
 ---
-name: ask-agent-skills
-description: Router for the agent craft commands. Names which slash command to type.
+name: google-agent-skills
+description: Index of the Google agent slash commands. Names which one to type.
 disable-model-invocation: true
 ---
 
-# Ask the agent skills
+# Google agent skills
 
 Use terms from `GLOSSARY.md`.
 
