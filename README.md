@@ -2,6 +2,208 @@
 
 Bu depo, Google ve Kaggle iş birliğiyle hazırlanan beş günlük yapay zeka aracısı (`AI Agent`) geliştirme kursunun materyallerini ve kendi projenizde aynı adımları uygulamak için yazılmış beceri (`skill`) tariflerini bir araya getirmektedir. Amacımız, özellikle **junior geliştiricilere**, `AI Agent`'ları sıfırdan tasarlama, inşa etme, değerlendirme ve dağıtma süreçlerinde adım adım rehberlik etmek, modern `AI Agent` geliştirme pratiklerini ve Google'ın Ajan Geliştirme Kiti (`ADK`) gibi araçları tanıtarak onları sektördeki güncel `trend`lere hazırlamaktır.
 
+İlk kez deniyorsanız önce aşağıdaki tarifleri okuyun. Kurs notları kavramı anlatır. Tarif, o kavramı sizin projenizde tek bir iş olarak uygular.
+
+## Tarifler (`skills`) nasıl kullanılır
+
+Tarifler `.cursor/skills/` klasöründedir. Her klasörün içinde bir `SKILL.md` dosyası vardır. Bazı klasörlerde bir de `reference.md` vardır. `reference.md` uzun tablodur. Ana adımlar `SKILL.md` içindedir.
+
+Bu tarifler dersi bitirmek için değildir. Kendi ajanınızı kurarken kullanılır. Başka bir projede kullanmak için `.cursor/skills` klasörünü ve `GLOSSARY.md` dosyasını o projenin köküne kopyalayın. Yollar aynı kalsın. Sonra o projeyi açın ve sohbette komutu yazın.
+
+### İki tür tarif vardır
+
+Birinci tür, sizin yazdığınız komuttur. Sohbette `/design-agent` gibi bir satır yazarsınız. Bu dosya işi kendisi yapmaz. Asıl tarife işaret eder. Sonra durur. Dosyanın başında `disable-model-invocation: true` yazar. Anlamı şudur. Ajan bu dosyayı kendiliğinden açmaz. Siz çağırırsınız.
+
+İkinci tür, asıl tariftir. Adımlar oradadır. Her adımın sonunda `Done when` yazar. Bu, işin bittiğini söyleyen kontrol cümlesidir. Cümle doğru olana kadar o adım bitmiş sayılmaz. Görev bu tarife uyunca ajan dosyayı kendisi de açabilir.
+
+Komut dosyası kısa tutulur. Asıl tarif uzundur. İkisini karıştırmayın. Aynı işi iki dosyaya birden yazmayın.
+
+Liste `.cursor/skills/google-agent-skills/SKILL.md` dosyasındadır. Hangi komutu yazacağınızı unutursanız önce onu açın. O dosya da iş yapmaz. Yalnızca tabloyu gösterir.
+
+### Bir turda tek iş
+
+Bir günde bütün komutları yazmayın. Bir komut bir davranıştır. O davranış `Done when` cümlesini sağlayınca durun. Ertesi işe ondan sonra geçin.
+
+İlk tur için üç komut yeter. `/design-agent`, gerekirse `/choose-agent-workflow`, sonra `/scaffold-adk-agent`. Araç, bellek, not ve yayın sonraki turlardır.
+
+Ajan yanlış cevap verirse prompt'u hemen büyütmeyin. Önce `/trace-agent` yazın. Yolu okuyun. Yolun adı `Trajectory` dir.
+
+### Komutları sırayla
+
+Aşağıdaki sıra, sıfırdan küçük bir ajana, oradan da yayına gider. Her maddede üç şey vardır. Ne zaman yazarsınız. Ne olur. Ne zaman biter.
+
+#### 1. `/design-agent`
+
+Ajanın ne olduğuna henüz karar vermediyseniz bunu yazın. Kod yazmadan önce gelir.
+
+Komut, `defining-an-agent` tarifini açar ve durur.
+
+O tarif şunları sorar. Bu sistem gerçekten ajan mı, yoksa tek turda metin dönen bir prompt mu. Seviyesi kaç. Modeli ne. Araçları ne. Sırayı kim seçiyor. Güvenlik ve `Agent Ops` satırlarından hangisi bu ajana değiyor.
+
+Bitti sayılması için şunlar yazılmış olmalıdır. Seviye. Model. Araç listesi. Orkestrasyon seçimi. Değdiği her `Agent Ops` veya güvenlik satırı için bir karar. “Sonra bakarız” karar değildir.
+
+Seviye 1 ile başlayın. Tek araç yeter. Seviye 4, ajanın kendi kodunu değiştirdiği araştırma hedefidir. İlk projeniz için onu seçmeyin.
+
+#### 2. `/choose-agent-workflow`
+
+İş tek ajanın işiyse bu komutu yazmayın. İki ayrı talimat veya iki ayrı araç seti varsa yazın.
+
+Komut, `choosing-agent-architecture` tarifini açar.
+
+Tarif şekli seçtirir.
+
+Tek iş ve tek araç seti ise tek ajan yeter.
+
+Model hangi uzmanı çağıracağına kendisi karar verecekse koordinatör kullanılır. Uzmanlar `AgentTool` olarak sarılır. Çağıran ajan kontrolde kalır. Sonuç ona geri döner.
+
+Sıra sabitse `SequentialAgent` kullanılır. “Önce şunu yap, sonra bunu” cümlesi sıra garantisi değildir. Sıra şartsa workflow agent şarttır.
+
+İşler birbirine bağlı değilse `ParallelAgent` kullanılır. Sonra bir toplayıcı ajan sonuçları birleştirir.
+
+Taslak, eleştiri ve yeniden yazma döngüsü varsa `LoopAgent` kullanılır. Üst sınır `max_iterations` değeridir. Döngü, metin güzel göründüğü için durmaz. Eleştirmen `APPROVED` yazınca veya üst sınıra gelince durur.
+
+Bitti sayılması için şeklin adı yazılmış olmalıdır. Ajanlar ve `output_key` değerleri listelenmiş olmalıdır. Bir cümle de şunu söyler. Bir basit alt şekil seçilseydi ne bozulurdu.
+
+#### 3. `/scaffold-adk-agent`
+
+Tasarım bittiyse bunu yazın. Bu komut kodu kurar ve bir tur çalıştırır.
+
+Komut, `building-with-adk` tarifini açar.
+
+Tarif `google-adk` paketini kurar. Anahtarı `GOOGLE_API_KEY` ortam değişkenine koyar. Anahtarı koda yazmaz. `Gemini` modeline 429 hatası için yeniden deneme ayarı verir. Ajana ad, talimat ve araç listesi koyar. `InMemoryRunner` ile `run_debug` çağırır. Bu çağrı geçici bir oturum açar. Kalıcı oturum değildir. Kalıcı oturum sonraki komutun işidir.
+
+`adk web` aynı ajanı tarayıcıda açar. Açılan adreste jeton olabilir. O adresi paylaşmayın.
+
+Bitti sayılması için şunlar vardır. Ad. Model. Talimat. Araç listesi. Yeniden deneme ayarı. `run_debug` veya `adk web` ile dönmüş bir cevap.
+
+Cevap geldiyse araca bakın. Araç çağrılmadıysa iki yer kontrol edilir. Araç `tools` listesinde mi. Talimat, ne zaman çağrılacağını söylüyor mu.
+
+#### 4. `/add-agent-tools`
+
+Kendi fonksiyonunuzu ekleyecekseniz bunu yazın. İlk turdaki hazır arama aracı yetiyorsa erteleyin.
+
+Komut, `designing-agent-tools` tarifini açar.
+
+Tarif araç türünü seçtirir. Fonksiyon aracı, sizin Python fonksiyonunuzdur. `AgentTool`, bir uzman ajanı araç gibi çağırır. Uzun süren araç, kişi onayı veya yavaş iş için durur. MCP aracı, dış sunucunun aracıdır. OpenAPI aracı, bir API tarifinden üretilir.
+
+Fonksiyonun tipi yazılır. Docstring, ne zaman çağrılacağını söyler. Dönüş ya `status: success` ya da `status: error` olur. Hata metni, modele sonraki adımı söyler. Geri alınması zor işte kişiye sorulur. Buna `HITL` denir. Onay, aynı çağrının devamıdır. Programı baştan çalıştırmak eski onayı getirmez. Tarifin içindeki `ResumabilityConfig` ve `invocation_id` bloğu bu yüzden durur.
+
+Bitti sayılması için her aracın bir görevi, bir şeması, kısa bir sonucu ve sonraki adımı söyleyen bir hata metni vardır.
+
+#### 5. `/connect-mcp`
+
+Araç sizin fonksiyonunuz değil de başka bir programın aracıysa bunu yazın. MCP, her sistem için ayrı istemci yazmamanız için ortak dildir.
+
+Komut, `using-mcp` tarifini açar.
+
+Tarif `McpToolset` ile sunucuya bağlar. Yerel sunucu `stdio` kullanır. Uzak sunucu HTTP kullanır. `tool_filter` izin listesidir. Sunucunun bütün araçlarını açmayın. Araç metni de modelin okuduğu metindir. Kötü bir metin, modeli yanlış işe itebilir. Buna gölgeleme (`tool shadowing`) denir.
+
+Bitti sayılması için sunucu, taşıma yolu, izin listesi ve değen tehdit satırları yazılmıştır. `McpToolset` üzerinden bir çağrı başarılı olmuştur.
+
+#### 6. `/engineer-agent-context`
+
+Ajan çalışıyor ama pencere şişiyor veya modele gereksiz metin gidiyorsa bunu yazın. `Context engineering`, bu turda modele giden paketi seçmektir.
+
+Komut, `engineering-agent-context` tarifini açar.
+
+Paket şunlardan kurulur. Talimat. Oturum satırları veya onların özeti. State değerleri. Bu tur için getirilen bellek. Araç şemaları ve son araç sonuçları. Getirilen belgeler. Her blok ya pakettedir ya da “neden yok” diye yazılmıştır.
+
+Uzun konuşmada `compaction` eski turları özete çevirir. Geçmiş silinmez. Modele giden metin kısalır. Örnekteki ayar `EventsCompactionConfig` içindedir.
+
+Bitti sayılması için paket listesi vardır. Büyüyen konuşma için özet veya önbellek seçilmiştir. Bir blok, yalnızca eklemesi kolay diye pakette değildir.
+
+#### 7. `/add-agent-session`
+
+Konuşma ikinci turda sıfırlanıyorsa bunu yazın. `Session`, bir kullanıcının bir ajanla süren tek konuşmasıdır. Başka kullanıcıyla paylaşılmaz.
+
+Komut, `managing-agent-sessions` tarifini açar.
+
+Tarif bir `SessionService` seçtirir. `InMemorySessionService` yeniden başlayınca silinir. Prototip içindir. `DatabaseSessionService` sizin veritabanınızda durur. Agent Engine oturumu, Google Cloud üzerinde yönetilen üretim oturumudur.
+
+State karalama defteridir. Öneksiz anahtar bu oturuma aittir. `temp:` bu çağrıya aittir. `user:` aynı kullanıcının sonraki oturumlarına gider. `app:` bütün uygulamaya gider. Başka kullanıcının verisini `app:` altına koymayın.
+
+Bitti sayılması için servisin adı yazılmıştır. Her oturum uygulama, kullanıcı ve oturum kimliği ile ayrılmıştır. Her state anahtarının öneki, olgunun ne kadar yaşayacağını söyler.
+
+#### 8. `/add-agent-memory`
+
+Yarın da hatırlanması gereken bir olgu varsa bunu yazın. “Ayşe çayı şekersiz içer” bir bellektir. Bunu yazmazsanız yarın ajan bilmez.
+
+Komut, `persisting-agent-memory` tarifini açar.
+
+`memory_service` tek başına yetmez. Oturumu belleğe eklemek gerekir. `add_session_to_memory` bunu yapar. Ajanın araması için bir araç da gerekir.
+
+`load_memory` modeli aramaya bırakır. Ucuzdur. Model aramayı unutabilir. `preload_memory` her turdan önce arar. Olgu oradadır. Token her tur harcanır. Unutmak pahalı değilse `load_memory` ile başlayın.
+
+`InMemoryMemoryService` ham satırlarda kelime arar. Süreç kapanınca gider. `VertexAiMemoryBankService` olguları sadeleştirir ve süreç dışında durur.
+
+Bitti sayılması için bir olgu birinci oturumda söylenmiş, ikinci oturumda yalnızca bellek sayesinde cevaplanmıştır. Başka bir kullanıcı o olguyu göremez.
+
+#### 9. `/trace-agent`
+
+Cevap yanlışsa veya araç hiç çağrılmadıysa bunu yazın. Prompt’u büyütmeden önce yol okunur.
+
+Komut, `observing-agents` tarifini açar.
+
+Log, bir anda ne olduğunu söyler. Trace, adımların sırasını söyler. Metric, gecikme ve hata oranı gibi sayılardır. İz olmadan verilen not tahmindir.
+
+Tarif logu DEBUG yapar. ADK web arayüzünün Events sekmesine bakar. Model isteğini, araç listesini, çağrıyı ve sonucu bulur. Kırılan adımı adlandırır. Sık kırılma şudur. Araç `str` bekler. Talimat liste gönderir. Tip düzeltilir.
+
+Sürekli çalışacak koşuya `LoggingPlugin` eklenir. Bir callback tek ajanı görür. Plugin, Runner üzerindeki bütün ajanları, model çağrılarını ve araç çağrılarını görür.
+
+Bitti sayılması için kırılan adımın adı vardır. Kanıt bir log satırı veya bir iz olayıdır. Yaşayacak Runner’da `LoggingPlugin` veya eşdeğeri vardır.
+
+#### 10. `/eval-agent`
+
+Ajana güvenmeden önce bunu yazın. Not, yalnızca son cümleye verilmez. Bütün yol notlanır. Yolun adı `Trajectory` dir.
+
+Komut, `evaluating-agents` tarifini açar.
+
+Bir deneme kümesinde üç şey durur. Kullanıcının cümlesi. Beklenen son cevap. Beklenen araç çağrıları. Bu kümeye `Eval set` denir.
+
+`tool_trajectory_avg_score` araç adı ve argüman uyumuna bakar. `response_match_score` metin benzerliğine bakar. Doğruluğun kanıtı değildir. Aynı doğru cevap başka kelimelerle yazılabilir.
+
+`Golden set`, kullanıcı görmeden önce geçmesi gereken seçilmiş kümedir. Üretimde kırılan örnek bu kümeye eklenir.
+
+Komut `adk eval` çalıştırır. Eşikler sayıdır. Kurs, özel bir hakem anahtarının tam adını vermez. Görünen iki ölçüt yukarıdakilerdir. Bilinmeyen anahtar uydurulmaz.
+
+Bitti sayılması için en az bir deneme vardır. Beklenen araçlar ve beklenen cevap yazılmıştır. Eşikler sayıdır. Komut çalışmıştır veya yolu doldurulmuş halde kişiye verilmiştir.
+
+#### 11. `/connect-a2a`
+
+Çağıracağınız ajan başka bir servisteyse bunu yazın. Aynı programın içindeki uzman için bu komut gerekmez. Onun için `AgentTool` veya `sub_agents` yeter. MCP bir fonksiyon çağırır. A2A bir ajana iş verir.
+
+Komut, `connecting-agents` tarifini açar.
+
+Karşı taraf `to_a2a` ile kart yayınlar. Kartın adresi `/.well-known/agent-card.json` olur. Siz `RemoteA2aAgent` ile o karta bağlanırsınız. Kendi oturum tablonuzu karşı tarafa vermezsiniz. Bir görev verirsiniz. Bir sonuç alırsınız.
+
+Bitti sayılması için uzak ajanın kart adresi vardır. İstemci `RemoteA2aAgent` veya eşdeğeridir. Özel olay günlüğü, görev yerine geçmez.
+
+#### 12. `/ship-agent`
+
+Ajan yerelde çalışıyor ve deneme kümesini geçiyorsa bunu yazın. Geçmeden yayın olmaz. Prompt değişikliği de sürümdür. Araç şemasındaki değişiklik de sürümdür.
+
+Komut, `deploying-agents` tarifini açar.
+
+Paket bir klasördür. `agent.py` içinde `root_agent` vardır. Bağımlılıklar sabittir. `GOOGLE_GENAI_USE_VERTEXAI` bilerek seçilir. `1` Vertex içindir. `0` AI Studio içindir. Bunu belirsiz bırakmayın.
+
+Çalışma yeri üç tanedir. Vertex AI Agent Engine, yönetilen ajan çalışma zamanıdır. Cloud Run, küçük bir servistir. GKE, çok ajanlı küme üzerinde daha fazla kontrol ister.
+
+Deneme dağıtımını silin. `min_instances` değerini 0 yapmak, kullanılmayan kopyayı kapatır. Silme işlemini “listedeki ilk ajan” diye yapmayın. Az önce kurduğunuz kaynağın adını kullanın.
+
+Bitti sayılması için klasör tamdır. Çalışma yerinin adı yazılmıştır. Bu sürümün eval sonucu vardır. Deneme dağıtımı sıfıra inebilir veya silinebilir.
+
+### İlk gün için kısa yol
+
+1. Python sanal ortamını açın. `google-adk` yüklü olsun. `GOOGLE_API_KEY` tanımlı olsun. Anahtar koda yazılmasın.
+2. `GLOSSARY.md` dosyasını bir kez okuyun. Kod yazarken oraya dönün.
+3. `/design-agent` yazın. Seviye 1 seçin. Tek araç seçin.
+4. İkinci ajan gerekmiyorsa `/choose-agent-workflow` yazmayın.
+5. `/scaffold-adk-agent` yazın. Bir tur cevap gelene kadar bu komutta kalın.
+6. Cevabı okuyun. Araç çağrıldı mı bakın.
+7. Ancak ondan sonra `/add-agent-tools` yazın.
+
+Bellek, not ve yayın bu ilk yolun dışındadır. Her biri ayrı bir turdur.
+
 ## Depo İçeriği ve Yapısı
 
 Bu depo, öğrenme ve uygulama deneyiminizi zenginleştirecek çeşitli kaynaklar içerir:
@@ -16,7 +218,7 @@ Bu depo, öğrenme ve uygulama deneyiminizi zenginleştirecek çeşitli kaynakla
 *   **Ortak Terimler Sözlüğü (`GLOSSARY.md`):**
     *   Yapay zeka aracıları dünyasında sıkça karşılaşılan ve bu kursta kullanılan anahtar `terim`lerin (`Agent`, `Model`, `Tool`, `Orchestration`, `Trajectory`, `Session`, `Event`, `State`, `Memory`, `Context Engineering`, `Compaction`, `AgentTool`, `Workflow agent`, `MCP`, `A2A`, `Agent card`, `Agent Ops`, `Eval set`, `Golden set`, `HITL` vb.) ayrıntılı, anlaşılır açıklamalarını içerir. Bu sözlük, kavramsal birliği sağlamak ve `terim`lerin doğru anlaşılmasını garanti etmek açısından kritik öneme sahiptir.
 *   **Uygulama tarifleri (`.cursor/skills/`):**
-    *   Bu klasör, kursu bitirdikten sonra kendi projenizde tek bir işi uygulamanız için yazılmış tariflerdir. Her tarif bir adımdır: `agent` tanımı, mimari seçimi, `context engineering`, `tool` tasarımı, `MCP` veya `A2A` bağlantısı, `session`, `memory`, `evaluation`, `observability` ve `deployment`. Tarif, o iş bitince durur. Bir sonraki iş için bir sonraki tarife geçersiniz.
+    *   Kullanım, yukarıdaki **Tarifler (`skills`) nasıl kullanılır** bölümündedir. Orada on iki komut, her komutun açtığı dosya ve işin biteceği kontrol cümlesi vardır.
 *   **Paket kopyası (`repomix-output.md`):**
     *   Bu dosya, deponun tek metin haline getirilmiş kopyasıdır. Yalnızca dışarıda inceleme yapmak içindir. **Bu dosyayı `git commit` işlemine eklemeyin.** Kaynak dosyalarınızın yerine geçmez.
 
