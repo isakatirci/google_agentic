@@ -7,7 +7,7 @@ description: Use when an agent fails and the cause is unclear, or when adding lo
 
 Use terms from `GLOSSARY.md`.
 
-The subject is the agent in this conversation. A wrong answer without a trajectory is a guess. Read this agent's path before changing the prompt.
+The subject is the agent in this conversation. A wrong answer without a Trajectory is a guess. Read this agent's path before changing the prompt.
 
 ## Three records
 

@@ -73,7 +73,7 @@ auto_memory_agent = LlmAgent(
 | When the conversation ends | One call at the end |
 | On a timer | A background job for a long session |
 
-Other callback points, if you need them: `before_agent_callback`, `before_tool_callback`, `after_tool_callback`, `before_model_callback`, `after_model_callback`, `on_model_error_callback`.
+Other callback points: `before_agent_callback`, `before_tool_callback`, `after_tool_callback`, `before_model_callback`, `after_model_callback`, `on_model_error_callback`.
 
 ## Consolidation
 

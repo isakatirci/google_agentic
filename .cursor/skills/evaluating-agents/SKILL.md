@@ -7,7 +7,7 @@ description: Use when scoring agent quality, building an eval set, or judging to
 
 Use terms from `GLOSSARY.md`.
 
-The subject is the agent in this conversation. Grade this agent's trajectory, not only the last sentence. A tool that passes its unit tests can still be the wrong tool for the turn.
+The subject is the agent in this conversation. Grade this agent's Trajectory, not only the last sentence. A tool that passes its unit tests can still be the wrong tool for the turn.
 
 ## Failure modes to name
 
@@ -59,16 +59,16 @@ User simulation is optional: another model plays the user across turns. Use it t
 ## Flywheel
 
 1. Instrument so the run is evaluable. See `observing-agents`.
-2. Score the trajectory against the golden set.
+2. Score the Trajectory against the golden set.
 3. Block release when the score drops. See `deploying-agents`.
 4. Turn a production failure into a new case in the golden set.
 
 ## Principles
 
 - Evaluation is part of the design. Add the trace points while you write the agent.
-- The trajectory is the truth. The final sentence is the last event.
+- The Trajectory is the truth. The final sentence is the last event.
 - The human is the arbiter of what a good score means.
 
 ## Done when
 
-This agent's eval set has at least one case with expected tools and an expected answer, the thresholds are numbers, and the command has been run or handed to the person with the path filled in.
+This agent's Eval set has at least one case with expected tools and an expected answer, the thresholds are numbers, and the command has been run or handed to the person with the path filled in.
