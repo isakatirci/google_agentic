@@ -1,22 +1,22 @@
 # Google ve Kaggle'dan 5 Günlük Yapay Zeka Aracısı (AI Agent) Geliştirme Kursu
 
-Bu depo, Google ve Kaggle iş birliğiyle hazırlanan beş günlük yapay zeka aracısı (`AI Agent`) geliştirme kursunun materyallerini ve kendi projenizde aynı adımları uygulamak için yazılmış beceri (`skill`) tariflerini bir araya getirmektedir. Amacımız, özellikle **junior geliştiricilere**, `AI Agent`'ları sıfırdan tasarlama, inşa etme, değerlendirme ve dağıtma süreçlerinde adım adım rehberlik etmek, modern `AI Agent` geliştirme pratiklerini ve Google'ın Ajan Geliştirme Kiti (`ADK`) gibi araçları tanıtarak onları sektördeki güncel `trend`lere hazırlamaktır.
+Bu depo, Google ve Kaggle iş birliğiyle hazırlanan beş günlük yapay zeka aracısı (`AI Agent`) geliştirme kursunun materyallerini ve kendi projenizde aynı adımları uygulamak için yazılmış `skill` dosyalarını bir araya getirmektedir. Amacımız, özellikle **junior geliştiricilere**, `AI Agent`'ları sıfırdan tasarlama, inşa etme, değerlendirme ve dağıtma süreçlerinde adım adım rehberlik etmek, modern `AI Agent` geliştirme pratiklerini ve Google'ın Ajan Geliştirme Kiti (`ADK`) gibi araçları tanıtarak onları sektördeki güncel `trend`lere hazırlamaktır.
 
-İlk kez deniyorsanız önce aşağıdaki tarifleri okuyun. Kurs notları kavramı anlatır. Tarif, o kavramı sizin projenizde tek bir iş olarak uygular.
+İlk kez deniyorsanız önce aşağıdaki `skill` bölümünü okuyun. Kurs notları kavramı anlatır. `Skill`, o kavramı sizin projenizde tek bir iş olarak uygular.
 
-## Tarifler (`skills`) nasıl kullanılır
+## `Skills` nasıl kullanılır
 
-Tarifler `.cursor/skills/` klasöründedir. Her klasörün içinde bir `SKILL.md` dosyası vardır. Bazı klasörlerde bir de `reference.md` vardır. `reference.md` uzun tablodur. Ana adımlar `SKILL.md` içindedir.
+`Skill` dosyaları `.cursor/skills/` klasöründedir. Her klasörün içinde bir `SKILL.md` dosyası vardır. Bazı klasörlerde bir de `reference.md` vardır. `reference.md` uzun tablodur. Ana adımlar `SKILL.md` içindedir.
 
-Bu tarifler dersi bitirmek için değildir. Kendi ajanınızı kurarken kullanılır. Başka bir projede kullanmak için `.cursor/skills` klasörünü ve `GLOSSARY.md` dosyasını o projenin köküne kopyalayın. Yollar aynı kalsın. Sonra o projeyi açın ve sohbette komutu yazın.
+Bu `skill`'ler dersi bitirmek için değildir. Kendi ajanınızı kurarken kullanılır. Başka bir projede kullanmak için `.cursor/skills` klasörünü ve `GLOSSARY.md` dosyasını o projenin köküne kopyalayın. Yollar aynı kalsın. Sonra o projeyi açın ve sohbette komutu yazın.
 
-### İki tür tarif vardır
+### İki tür `skill` vardır
 
-Birinci tür, sizin yazdığınız komuttur. Sohbette `/design-agent` gibi bir satır yazarsınız. Bu dosya işi kendisi yapmaz. Asıl tarife işaret eder. Sonra durur. Dosyanın başında `disable-model-invocation: true` yazar. Anlamı şudur. Ajan bu dosyayı kendiliğinden açmaz. Siz çağırırsınız.
+Birinci tür, sizin yazdığınız komuttur. Sohbette `/design-agent` gibi bir satır yazarsınız. Bu dosya işi kendisi yapmaz. Asıl `skill`'e işaret eder. Sonra durur. Dosyanın başında `disable-model-invocation: true` yazar. Anlamı şudur. Ajan bu dosyayı kendiliğinden açmaz. Siz çağırırsınız.
 
-İkinci tür, asıl tariftir. Adımlar oradadır. Her adımın sonunda `Done when` yazar. Bu, işin bittiğini söyleyen kontrol cümlesidir. Cümle doğru olana kadar o adım bitmiş sayılmaz. Görev bu tarife uyunca ajan dosyayı kendisi de açabilir.
+İkinci tür, asıl `skill`'dir. Adımlar oradadır. Her adımın sonunda `Done when` yazar. Bu, işin bittiğini söyleyen kontrol cümlesidir. Cümle doğru olana kadar o adım bitmiş sayılmaz. Görev bu `skill`'e uyunca ajan dosyayı kendisi de açabilir.
 
-Komut dosyası kısa tutulur. Asıl tarif uzundur. İkisini karıştırmayın. Aynı işi iki dosyaya birden yazmayın.
+Komut dosyası kısa tutulur. Asıl `skill` uzundur. İkisini karıştırmayın. Aynı işi iki dosyaya birden yazmayın.
 
 Liste `.cursor/skills/google-agent-skills/SKILL.md` dosyasındadır. Hangi komutu yazacağınızı unutursanız önce onu açın. O dosya da iş yapmaz. Yalnızca tabloyu gösterir.
 
@@ -36,9 +36,9 @@ Aşağıdaki sıra, sıfırdan küçük bir ajana, oradan da yayına gider. Her 
 
 Ajanın ne olduğuna henüz karar vermediyseniz bunu yazın. Kod yazmadan önce gelir.
 
-Komut, `defining-an-agent` tarifini açar ve durur.
+Komut, `defining-an-agent` `skill`'ini açar ve durur.
 
-O tarif şunları sorar. Bu sistem gerçekten ajan mı, yoksa tek turda metin dönen bir prompt mu. Seviyesi kaç. Modeli ne. Araçları ne. Sırayı kim seçiyor. Güvenlik ve `Agent Ops` satırlarından hangisi bu ajana değiyor.
+O `skill` şunları sorar. Bu sistem gerçekten ajan mı, yoksa tek turda metin dönen bir prompt mu. Seviyesi kaç. Modeli ne. Araçları ne. Sırayı kim seçiyor. Güvenlik ve `Agent Ops` satırlarından hangisi bu ajana değiyor.
 
 Bitti sayılması için şunlar yazılmış olmalıdır. Seviye. Model. Araç listesi. Orkestrasyon seçimi. Değdiği her `Agent Ops` veya güvenlik satırı için bir karar. “Sonra bakarız” karar değildir.
 
@@ -48,9 +48,9 @@ Seviye 1 ile başlayın. Tek araç yeter. Seviye 4, ajanın kendi kodunu değiş
 
 İş tek ajanın işiyse bu komutu yazmayın. İki ayrı talimat veya iki ayrı araç seti varsa yazın.
 
-Komut, `choosing-agent-architecture` tarifini açar.
+Komut, `choosing-agent-architecture` `skill`'ini açar.
 
-Tarif şekli seçtirir.
+`Skill` şekli seçtirir.
 
 Tek iş ve tek araç seti ise tek ajan yeter.
 
@@ -68,9 +68,9 @@ Bitti sayılması için şeklin adı yazılmış olmalıdır. Ajanlar ve `output
 
 Tasarım bittiyse bunu yazın. Bu komut kodu kurar ve bir tur çalıştırır.
 
-Komut, `building-with-adk` tarifini açar.
+Komut, `building-with-adk` `skill`'ini açar.
 
-Tarif `google-adk` paketini kurar. Anahtarı `GOOGLE_API_KEY` ortam değişkenine koyar. Anahtarı koda yazmaz. `Gemini` modeline 429 hatası için yeniden deneme ayarı verir. Ajana ad, talimat ve araç listesi koyar. `InMemoryRunner` ile `run_debug` çağırır. Bu çağrı geçici bir oturum açar. Kalıcı oturum değildir. Kalıcı oturum sonraki komutun işidir.
+`Skill` `google-adk` paketini kurar. Anahtarı `GOOGLE_API_KEY` ortam değişkenine koyar. Anahtarı koda yazmaz. `Gemini` modeline 429 hatası için yeniden deneme ayarı verir. Ajana ad, talimat ve araç listesi koyar. `InMemoryRunner` ile `run_debug` çağırır. Bu çağrı geçici bir oturum açar. Kalıcı oturum değildir. Kalıcı oturum sonraki komutun işidir.
 
 `adk web` aynı ajanı tarayıcıda açar. Açılan adreste jeton olabilir. O adresi paylaşmayın.
 
@@ -82,11 +82,11 @@ Cevap geldiyse araca bakın. Araç çağrılmadıysa iki yer kontrol edilir. Ara
 
 Kendi fonksiyonunuzu ekleyecekseniz bunu yazın. İlk turdaki hazır arama aracı yetiyorsa erteleyin.
 
-Komut, `designing-agent-tools` tarifini açar.
+Komut, `designing-agent-tools` `skill`'ini açar.
 
-Tarif araç türünü seçtirir. Fonksiyon aracı, sizin Python fonksiyonunuzdur. `AgentTool`, bir uzman ajanı araç gibi çağırır. Uzun süren araç, kişi onayı veya yavaş iş için durur. MCP aracı, dış sunucunun aracıdır. OpenAPI aracı, bir API tarifinden üretilir.
+`Skill` araç türünü seçtirir. Fonksiyon aracı, sizin Python fonksiyonunuzdur. `AgentTool`, bir uzman ajanı araç gibi çağırır. Uzun süren araç, kişi onayı veya yavaş iş için durur. MCP aracı, dış sunucunun aracıdır. OpenAPI aracı, bir OpenAPI belgesinden üretilir.
 
-Fonksiyonun tipi yazılır. Docstring, ne zaman çağrılacağını söyler. Dönüş ya `status: success` ya da `status: error` olur. Hata metni, modele sonraki adımı söyler. Geri alınması zor işte kişiye sorulur. Buna `HITL` denir. Onay, aynı çağrının devamıdır. Programı baştan çalıştırmak eski onayı getirmez. Tarifin içindeki `ResumabilityConfig` ve `invocation_id` bloğu bu yüzden durur.
+Fonksiyonun tipi yazılır. Docstring, ne zaman çağrılacağını söyler. Dönüş ya `status: success` ya da `status: error` olur. Hata metni, modele sonraki adımı söyler. Geri alınması zor işte kişiye sorulur. Buna `HITL` denir. Onay, aynı çağrının devamıdır. Programı baştan çalıştırmak eski onayı getirmez. `Skill` içindeki `ResumabilityConfig` ve `invocation_id` bloğu bu yüzden durur.
 
 Bitti sayılması için her aracın bir görevi, bir şeması, kısa bir sonucu ve sonraki adımı söyleyen bir hata metni vardır.
 
@@ -94,9 +94,9 @@ Bitti sayılması için her aracın bir görevi, bir şeması, kısa bir sonucu 
 
 Araç sizin fonksiyonunuz değil de başka bir programın aracıysa bunu yazın. MCP, her sistem için ayrı istemci yazmamanız için ortak dildir.
 
-Komut, `using-mcp` tarifini açar.
+Komut, `using-mcp` `skill`'ini açar.
 
-Tarif `McpToolset` ile sunucuya bağlar. Yerel sunucu `stdio` kullanır. Uzak sunucu HTTP kullanır. `tool_filter` izin listesidir. Sunucunun bütün araçlarını açmayın. Araç metni de modelin okuduğu metindir. Kötü bir metin, modeli yanlış işe itebilir. Buna gölgeleme (`tool shadowing`) denir.
+`Skill` `McpToolset` ile sunucuya bağlar. Yerel sunucu `stdio` kullanır. Uzak sunucu HTTP kullanır. `tool_filter` izin listesidir. Sunucunun bütün araçlarını açmayın. Araç metni de modelin okuduğu metindir. Kötü bir metin, modeli yanlış işe itebilir. Buna gölgeleme (`tool shadowing`) denir.
 
 Bitti sayılması için sunucu, taşıma yolu, izin listesi ve değen tehdit satırları yazılmıştır. `McpToolset` üzerinden bir çağrı başarılı olmuştur.
 
@@ -104,7 +104,7 @@ Bitti sayılması için sunucu, taşıma yolu, izin listesi ve değen tehdit sat
 
 Ajan çalışıyor ama pencere şişiyor veya modele gereksiz metin gidiyorsa bunu yazın. `Context engineering`, bu turda modele giden paketi seçmektir.
 
-Komut, `engineering-agent-context` tarifini açar.
+Komut, `engineering-agent-context` `skill`'ini açar.
 
 Paket şunlardan kurulur. Talimat. Oturum satırları veya onların özeti. State değerleri. Bu tur için getirilen bellek. Araç şemaları ve son araç sonuçları. Getirilen belgeler. Her blok ya pakettedir ya da “neden yok” diye yazılmıştır.
 
@@ -116,9 +116,9 @@ Bitti sayılması için paket listesi vardır. Büyüyen konuşma için özet ve
 
 Konuşma ikinci turda sıfırlanıyorsa bunu yazın. `Session`, bir kullanıcının bir ajanla süren tek konuşmasıdır. Başka kullanıcıyla paylaşılmaz.
 
-Komut, `managing-agent-sessions` tarifini açar.
+Komut, `managing-agent-sessions` `skill`'ini açar.
 
-Tarif bir `SessionService` seçtirir. `InMemorySessionService` yeniden başlayınca silinir. Prototip içindir. `DatabaseSessionService` sizin veritabanınızda durur. Agent Engine oturumu, Google Cloud üzerinde yönetilen üretim oturumudur.
+`Skill` bir `SessionService` seçtirir. `InMemorySessionService` yeniden başlayınca silinir. Prototip içindir. `DatabaseSessionService` sizin veritabanınızda durur. Agent Engine oturumu, Google Cloud üzerinde yönetilen üretim oturumudur.
 
 State karalama defteridir. Öneksiz anahtar bu oturuma aittir. `temp:` bu çağrıya aittir. `user:` aynı kullanıcının sonraki oturumlarına gider. `app:` bütün uygulamaya gider. Başka kullanıcının verisini `app:` altına koymayın.
 
@@ -128,7 +128,7 @@ Bitti sayılması için servisin adı yazılmıştır. Her oturum uygulama, kull
 
 Yarın da hatırlanması gereken bir olgu varsa bunu yazın. “Ayşe çayı şekersiz içer” bir bellektir. Bunu yazmazsanız yarın ajan bilmez.
 
-Komut, `persisting-agent-memory` tarifini açar.
+Komut, `persisting-agent-memory` `skill`'ini açar.
 
 `memory_service` tek başına yetmez. Oturumu belleğe eklemek gerekir. `add_session_to_memory` bunu yapar. Ajanın araması için bir araç da gerekir.
 
@@ -142,11 +142,11 @@ Bitti sayılması için bir olgu birinci oturumda söylenmiş, ikinci oturumda y
 
 Cevap yanlışsa veya araç hiç çağrılmadıysa bunu yazın. Prompt’u büyütmeden önce yol okunur.
 
-Komut, `observing-agents` tarifini açar.
+Komut, `observing-agents` `skill`'ini açar.
 
 Log, bir anda ne olduğunu söyler. Trace, adımların sırasını söyler. Metric, gecikme ve hata oranı gibi sayılardır. İz olmadan verilen not tahmindir.
 
-Tarif logu DEBUG yapar. ADK web arayüzünün Events sekmesine bakar. Model isteğini, araç listesini, çağrıyı ve sonucu bulur. Kırılan adımı adlandırır. Sık kırılma şudur. Araç `str` bekler. Talimat liste gönderir. Tip düzeltilir.
+`Skill` logu DEBUG yapar. ADK web arayüzünün Events sekmesine bakar. Model isteğini, araç listesini, çağrıyı ve sonucu bulur. Kırılan adımı adlandırır. Sık kırılma şudur. Araç `str` bekler. Talimat liste gönderir. Tip düzeltilir.
 
 Sürekli çalışacak koşuya `LoggingPlugin` eklenir. Bir callback tek ajanı görür. Plugin, Runner üzerindeki bütün ajanları, model çağrılarını ve araç çağrılarını görür.
 
@@ -156,7 +156,7 @@ Bitti sayılması için kırılan adımın adı vardır. Kanıt bir log satırı
 
 Ajana güvenmeden önce bunu yazın. Not, yalnızca son cümleye verilmez. Bütün yol notlanır. Yolun adı `Trajectory` dir.
 
-Komut, `evaluating-agents` tarifini açar.
+Komut, `evaluating-agents` `skill`'ini açar.
 
 Bir deneme kümesinde üç şey durur. Kullanıcının cümlesi. Beklenen son cevap. Beklenen araç çağrıları. Bu kümeye `Eval set` denir.
 
@@ -172,7 +172,7 @@ Bitti sayılması için en az bir deneme vardır. Beklenen araçlar ve beklenen 
 
 Çağıracağınız ajan başka bir servisteyse bunu yazın. Aynı programın içindeki uzman için bu komut gerekmez. Onun için `AgentTool` veya `sub_agents` yeter. MCP bir fonksiyon çağırır. A2A bir ajana iş verir.
 
-Komut, `connecting-agents` tarifini açar.
+Komut, `connecting-agents` `skill`'ini açar.
 
 Karşı taraf `to_a2a` ile kart yayınlar. Kartın adresi `/.well-known/agent-card.json` olur. Siz `RemoteA2aAgent` ile o karta bağlanırsınız. Kendi oturum tablonuzu karşı tarafa vermezsiniz. Bir görev verirsiniz. Bir sonuç alırsınız.
 
@@ -182,7 +182,7 @@ Bitti sayılması için uzak ajanın kart adresi vardır. İstemci `RemoteA2aAge
 
 Ajan yerelde çalışıyor ve deneme kümesini geçiyorsa bunu yazın. Geçmeden yayın olmaz. Prompt değişikliği de sürümdür. Araç şemasındaki değişiklik de sürümdür.
 
-Komut, `deploying-agents` tarifini açar.
+Komut, `deploying-agents` `skill`'ini açar.
 
 Paket bir klasördür. `agent.py` içinde `root_agent` vardır. Bağımlılıklar sabittir. `GOOGLE_GENAI_USE_VERTEXAI` bilerek seçilir. `1` Vertex içindir. `0` AI Studio içindir. Bunu belirsiz bırakmayın.
 
@@ -217,8 +217,8 @@ Bu depo, öğrenme ve uygulama deneyiminizi zenginleştirecek çeşitli kaynakla
         *   **Day5:** `Agent-to-Agent Communication` (`A2A`) (Ajanlar Arası İletişim) ve `Deployment` (Dağıtım).
 *   **Ortak Terimler Sözlüğü (`GLOSSARY.md`):**
     *   Yapay zeka aracıları dünyasında sıkça karşılaşılan ve bu kursta kullanılan anahtar `terim`lerin (`Agent`, `Model`, `Tool`, `Orchestration`, `Trajectory`, `Session`, `Event`, `State`, `Memory`, `Context Engineering`, `Compaction`, `AgentTool`, `Workflow agent`, `MCP`, `A2A`, `Agent card`, `Agent Ops`, `Eval set`, `Golden set`, `HITL` vb.) ayrıntılı, anlaşılır açıklamalarını içerir. Bu sözlük, kavramsal birliği sağlamak ve `terim`lerin doğru anlaşılmasını garanti etmek açısından kritik öneme sahiptir.
-*   **Uygulama tarifleri (`.cursor/skills/`):**
-    *   Kullanım, yukarıdaki **Tarifler (`skills`) nasıl kullanılır** bölümündedir. Orada on iki komut, her komutun açtığı dosya ve işin biteceği kontrol cümlesi vardır.
+*   **`Skills` (`.cursor/skills/`):**
+    *   Kullanım, yukarıdaki **`Skills` nasıl kullanılır** bölümündedir. Orada on iki komut, her komutun açtığı dosya ve işin biteceği kontrol cümlesi vardır.
 *   **Paket kopyası (`repomix-output.md`):**
     *   Bu dosya, deponun tek metin haline getirilmiş kopyasıdır. Yalnızca dışarıda inceleme yapmak içindir. **Bu dosyayı `git commit` işlemine eklemeyin.** Kaynak dosyalarınızın yerine geçmez.
 
@@ -351,4 +351,4 @@ Bu gün, geliştirilen `agent`'ların gerçek dünya `uygulama`larına (`applica
 *   **Ajanlar Arası İletişim (`A2A`):** Karmaşık görevleri çözmek veya birden fazla `uzmanlık alanı`nı (`domain expertise`) birleştirmek için birden fazla `agent`'ın `koordineli` (`coordinated`) bir şekilde nasıl iletişim kurduğu ve `işbirliği` (`collaboration`) yaptığı.
 *   **Ajan Dağıtımı (`Agent Deployment`):** Geliştirilen `agent`'ların `üretim ortamları`nda güvenli, `ölçeklenebilir` ve yönetilebilir bir şekilde (örneğin, `bulut platformları`na (`cloud platforms`) veya `API servisleri` (`API services`) olarak) nasıl `dağıtılacağı` (`deployed`). `Rollout stratejileri`, `izleme` (`monitoring`) ve `sürüm kontrolü` (`version control`) gibi konular ele alınır.
 
-Bu kapsamlı kurs, `junior` geliştiricilere yapay zeka `agent`'ları dünyasında sağlam bir `temel` (`foundation`) ve `pratik beceriler` (`practical skills`) kazandırarak, modern `AI uygulama`ları (`AI applications`) geliştirmeleri için gerekli `bilgi birikimi`ni (`knowledge`) sunmayı hedeflemektedir.
+Bu kapsamlı kurs, `junior` geliştiricilere yapay zeka `agent`'ları dünyasında sağlam bir `temel` (`foundation`) ve `practical skills` kazandırarak, modern `AI uygulama`ları (`AI applications`) geliştirmeleri için gerekli `bilgi birikimi`ni (`knowledge`) sunmayı hedeflemektedir.
