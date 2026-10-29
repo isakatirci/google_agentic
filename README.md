@@ -67,8 +67,6 @@ google_agentic/
 └── README.md                 # Bu dosya
 ```
 
-> **Not:** `repomix-output.md` dosyası deponun tek metin haline getirilmiş kopyasıdır; yalnızca harici inceleme içindir. Git commit'e eklemeyin.
-
 ---
 
 ## Kurulum
