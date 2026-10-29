@@ -1,6 +1,6 @@
 # Google ve Kaggle'dan 5 Günlük Yapay Zeka Aracısı (AI Agent) Geliştirme Kursu
 
-Bu depo, Google ve Kaggle iş birliğiyle hazırlanan beş günlük yapay zeka aracısı (`AI Agent`) geliştirme kursunun materyallerini ve Cursor platformu için tasarlanmış ilgili beceri (`skill`) dosyalarını bir araya getirmektedir. Amacımız, özellikle **junior geliştiricilere**, `AI Agent`'ları sıfırdan tasarlama, inşa etme, değerlendirme ve dağıtma süreçlerinde adım adım rehberlik etmek, modern `AI Agent` geliştirme pratiklerini ve Google'ın Ajan Geliştirme Kiti (`ADK`) gibi araçları tanıtarak onları sektördeki güncel `trend`lere hazırlamaktır.
+Bu depo, Google ve Kaggle iş birliğiyle hazırlanan beş günlük yapay zeka aracısı (`AI Agent`) geliştirme kursunun materyallerini ve kendi projenizde aynı adımları uygulamak için yazılmış beceri (`skill`) tariflerini bir araya getirmektedir. Amacımız, özellikle **junior geliştiricilere**, `AI Agent`'ları sıfırdan tasarlama, inşa etme, değerlendirme ve dağıtma süreçlerinde adım adım rehberlik etmek, modern `AI Agent` geliştirme pratiklerini ve Google'ın Ajan Geliştirme Kiti (`ADK`) gibi araçları tanıtarak onları sektördeki güncel `trend`lere hazırlamaktır.
 
 ## Depo İçeriği ve Yapısı
 
@@ -15,10 +15,10 @@ Bu depo, öğrenme ve uygulama deneyiminizi zenginleştirecek çeşitli kaynakla
         *   **Day5:** `Agent-to-Agent Communication` (`A2A`) (Ajanlar Arası İletişim) ve `Deployment` (Dağıtım).
 *   **Ortak Terimler Sözlüğü (`GLOSSARY.md`):**
     *   Yapay zeka aracıları dünyasında sıkça karşılaşılan ve bu kursta kullanılan anahtar `terim`lerin (`Agent`, `Model`, `Tool`, `Orchestration`, `Trajectory`, `Session`, `Event`, `State`, `Memory`, `Context Engineering`, `Compaction`, `AgentTool`, `Workflow agent`, `MCP`, `A2A`, `Agent card`, `Agent Ops`, `Eval set`, `Golden set`, `HITL` vb.) ayrıntılı, anlaşılır açıklamalarını içerir. Bu sözlük, kavramsal birliği sağlamak ve `terim`lerin doğru anlaşılmasını garanti etmek açısından kritik öneme sahiptir.
-*   **Cursor Becerileri (`.cursor/skills/`):**
-    *   Bu dizin, Cursor platformunda yapay zeka aracısı geliştirme sürecini kolaylaştırmak için tasarlanmış özel beceri dosyalarını içerir. Bu beceriler, geliştiricilerin belirli görevleri (örneğin, `agent` mimarisi seçimi, `agent` tanımlama, `context engineering`, `tool` tasarımı, `A2A` veya `MCP` üzerinden `agent` bağlantısı kurma, `session` yönetimi, `memory` kalıcılığı, `agent`'ları `evaluation` ve `observability`, ve `agent`'ları `deployment`) adım adım gerçekleştirmesine olanak tanıyan iş akışları sunar. Her bir beceri, ilgili `AI Agent` geliştirme adımına odaklanır ve pratik uygulamayı destekler.
-*   **Repomix Çıktısı (`repomix-output.md`):**
-    *   Bu dosya, deponun genel bir özeti ve Cursor becerileri ile Google `ADK` rehberinin birleştirilmiş halini temsil eden **yalnızca inceleme amaçlı bir belgedir.** Depo hakkındaki üst düzey bilgileri, Cursor becerilerinin sağladığı iş akışlarını ve Google `ADK`'nın kurulum ve çalıştırma pratiklerini özetler. **Bu dosya asla `git commit` işlemine dahil edilmemelidir**, çünkü bu dosya, depo içeriğinin otomatik olarak oluşturulmuş bir özetidir ve gerçek proje dosyalarınızı veya konfigürasyonunuzu temsil etmez.
+*   **Uygulama tarifleri (`.cursor/skills/`):**
+    *   Bu klasör, kursu bitirdikten sonra kendi projenizde tek bir işi uygulamanız için yazılmış tariflerdir. Her tarif bir adımdır: `agent` tanımı, mimari seçimi, `context engineering`, `tool` tasarımı, `MCP` veya `A2A` bağlantısı, `session`, `memory`, `evaluation`, `observability` ve `deployment`. Tarif, o iş bitince durur. Bir sonraki iş için bir sonraki tarife geçersiniz.
+*   **Paket kopyası (`repomix-output.md`):**
+    *   Bu dosya, deponun tek metin haline getirilmiş kopyasıdır. Yalnızca dışarıda inceleme yapmak içindir. **Bu dosyayı `git commit` işlemine eklemeyin.** Kaynak dosyalarınızın yerine geçmez.
 
 ## Geliştirme Ortamı Kurulumu
 
