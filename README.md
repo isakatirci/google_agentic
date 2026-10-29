@@ -1,366 +1,152 @@
-# Sıfırdan ajana
+# Google ve Kaggle'dan 5 Günlük Yapay Zeka Aracısı (AI Agent) Geliştirme Kursu
+
+Bu depo, Google ve Kaggle iş birliğiyle hazırlanan beş günlük yapay zeka aracısı (`AI Agent`) geliştirme kursunun materyallerini ve Cursor platformu için tasarlanmış ilgili beceri (`skill`) dosyalarını bir araya getirmektedir. Amacımız, özellikle **junior geliştiricilere**, `AI Agent`'ları sıfırdan tasarlama, inşa etme, değerlendirme ve dağıtma süreçlerinde adım adım rehberlik etmek, modern `AI Agent` geliştirme pratiklerini ve Google'ın Ajan Geliştirme Kiti (`ADK`) gibi araçları tanıtarak onları sektördeki güncel `trend`lere hazırlamaktır.
+
+## Depo İçeriği ve Yapısı
+
+Bu depo, öğrenme ve uygulama deneyiminizi zenginleştirecek çeşitli kaynaklar içerir:
+
+*   **Kurs Materyalleri (`5-day-ai-agents/`):**
+    *   Bu klasör, kursun temelini oluşturan beş gün için düzenlenmiş not defterlerini (`Jupyter Notebooks`), detaylı ders notlarını ve `PDF` kaynaklarını barındırır. Her gün için ayrı klasörler (`Day1`, `Day2` vb.) altında düzenlenmiştir ve her günün materyalleri belirli bir konuya odaklanır. Örneğin:
+        *   **Day1:** `Agent` temelleri ve mimarileri.
+        *   **Day2:** `Tool`'lar (Araçlar) ve `Model Context Protocol` (`MCP`).
+        *   **Day3:** `Context Engineering` (Bağlam Mühendisliği), `Session`'lar (Oturumlar) ve `Memory` (Hafıza).
+        *   **Day4:** Kalite, `Observability` (Gözlemlenebilirlik) ve `Evaluation` (Değerlendirme).
+        *   **Day5:** `Agent-to-Agent Communication` (`A2A`) (Ajanlar Arası İletişim) ve `Deployment` (Dağıtım).
+*   **Ortak Terimler Sözlüğü (`GLOSSARY.md`):**
+    *   Yapay zeka aracıları dünyasında sıkça karşılaşılan ve bu kursta kullanılan anahtar `terim`lerin (`Agent`, `Model`, `Tool`, `Orchestration`, `Trajectory`, `Session`, `Event`, `State`, `Memory`, `Context Engineering`, `Compaction`, `AgentTool`, `Workflow agent`, `MCP`, `A2A`, `Agent card`, `Agent Ops`, `Eval set`, `Golden set`, `HITL` vb.) ayrıntılı, anlaşılır açıklamalarını içerir. Bu sözlük, kavramsal birliği sağlamak ve `terim`lerin doğru anlaşılmasını garanti etmek açısından kritik öneme sahiptir.
+*   **Cursor Becerileri (`.cursor/skills/`):**
+    *   Bu dizin, Cursor platformunda yapay zeka aracısı geliştirme sürecini kolaylaştırmak için tasarlanmış özel beceri dosyalarını içerir. Bu beceriler, geliştiricilerin belirli görevleri (örneğin, `agent` mimarisi seçimi, `agent` tanımlama, `context engineering`, `tool` tasarımı, `A2A` veya `MCP` üzerinden `agent` bağlantısı kurma, `session` yönetimi, `memory` kalıcılığı, `agent`'ları `evaluation` ve `observability`, ve `agent`'ları `deployment`) adım adım gerçekleştirmesine olanak tanıyan iş akışları sunar. Her bir beceri, ilgili `AI Agent` geliştirme adımına odaklanır ve pratik uygulamayı destekler.
+*   **Repomix Çıktısı (`repomix-output.md`):**
+    *   Bu dosya, deponun genel bir özeti ve Cursor becerileri ile Google `ADK` rehberinin birleştirilmiş halini temsil eden **yalnızca inceleme amaçlı bir belgedir.** Depo hakkındaki üst düzey bilgileri, Cursor becerilerinin sağladığı iş akışlarını ve Google `ADK`'nın kurulum ve çalıştırma pratiklerini özetler. **Bu dosya asla `git commit` işlemine dahil edilmemelidir**, çünkü bu dosya, depo içeriğinin otomatik olarak oluşturulmuş bir özetidir ve gerçek proje dosyalarınızı veya konfigürasyonunuzu temsil etmez.
+
+## Geliştirme Ortamı Kurulumu
+
+Bu projeyi yerel ortamınızda sorunsuz bir şekilde çalıştırmak ve kurs materyallerinden tam verim almak için aşağıdaki gereksinimleri karşılamanız gerekmektedir:
+
+*   **Python:** **Python 3.10 veya üzeri bir sürüm** kurulu olmalıdır. Daha eski sürümler `uyumluluk` sorunlarına yol açabilir.
+*   **Sanal Ortam (`Virtual Environment`):** Proje `bağımlılık`larını (`dependencies`) izole etmek ve sisteminizdeki diğer `Python` projeleriyle çakışmaları önlemek için bir **sanal ortam (`venv` veya `conda` gibi) kullanmanız şiddetle tavsiye edilir.**
+    ```bash
+    python -m venv venv # Bir sanal ortam oluşturma
+    source venv/bin/activate # Sanal ortamı etkinleştirme (Linux/macOS)
+    # veya venv\Scripts\activate (Windows)
+    ```
+*   **JupyterLab:** Kurs not defterlerini etkileşimli olarak çalıştırmak ve deney yapmak için **JupyterLab kurulumu** gereklidir.
+    ```bash
+    pip install jupyterlab
+    jupyter lab # JupyterLab'i başlatma
+    ```
+*   **Google ADK (`google-adk`):** Google'ın Ajan Geliştirme Kiti'ni (`Agent Development Kit`) yüklemeniz gerekmektedir. Bu kit, `agent`'larınızı oluşturmak ve yönetmek için gerekli temel `tool`'ları (araçları) sağlar.
+    ```bash
+    pip install google-adk
+    ```
+
+## Google Gemini ile Entegrasyon ve API Anahtarı Yönetimi
+
+`Gemini model`ini kullanarak `agent`'larınızı geliştirmek ve çalıştırmak için bir `GOOGLE_API_KEY`'e ihtiyacınız olacaktır.
+
+*   **API Anahtarı Edinme:** Anahtarınızı Google `AI Studio` platformundan kolayca edinebilirsiniz.
+*   **Ortam Değişkeni Olarak Ayarlama:** **`GOOGLE_API_KEY`'i asla doğrudan `kod`unuzun içine yazmayın veya `GitHub` gibi herkese açık bir `repo`'da paylaşmayın!** Bunun yerine, anahtarınızı bir `ortam değişkeni` (`environment variable`) olarak ayarlamalısınız. Bu, `güvenlik` (`security`) açısından kritik öneme sahiptir.
+    ```bash
+    export GOOGLE_API_KEY="buraya-anahtar" # Linux/macOS
+    # veya set GOOGLE_API_KEY="buraya-anahtar" (Windows CMD)
+    # veya $env:GOOGLE_API_KEY="buraya-anahtar" (Windows PowerShell)
+    ```
+*   **Kaggle Not Defterleri İçin:** Kaggle ortamında çalışırken, not defterleri `API anahtar`ınızı `UserSecretsClient` aracı aracılığıyla güvenli bir şekilde okuyacak şekilde yapılandırılmıştır.
 
-Bu depo, Google ve Kaggle’ın 5 günlük ajan kursunu ve onun yanında kullanılan skill dosyalarını tutar.
+## Google ADK Rehberi ve En İyi Uygulamalar
 
-Skill, ajana verilen kısa bir iş tarifidir. Siz bir komut yazarsınız. Ajan o tarifi açar ve adımları uygular.
+Google `ADK` rehberi, `agent`'larınızı geliştirirken izlemeniz gereken önemli adımları ve en iyi `pratik`leri (`best practices`) belirtir:
 
-Kurs İngilizcedir. Bu sayfa Türkçedir. Terimleri İngilizce bırakır. Kodda da o kelimeler geçer.
+*   **`google-adk` Kullanımı:** `Agent`'larınızın temel yapılarını ve etkileşimlerini yönetmek için bu `kit`i nasıl kullanacağınızı öğrenin.
+*   **`Agent` Tanımlama:** Her `agent`'ın bir `ad`a, kullanılacak bir `model`e, belirli `talimatlar`a (`instructions`) ve görevlerini yerine getirecek `tool`'lara sahip olması gerektiğini unutmayın.
+*   **`API Call`'ları (API Çağrıları):** `API call`'ları arasında uygun `zamanlama`yı (`spacing`) koruyarak `hız limiti` (`rate limit`) aşımlarına takılmayı önleyin.
+*   **Hata Yönetimi:** `Hız limiti` aşımları ve `sunucu` hataları gibi durumlar için `yeniden deneme yapılandırmaları` (`retry configurations`) kullanın.
+*   **`Agent`'ı Çalıştırma:** `InMemoryRunner` ile hızlı `prototipleme` ve `run_debug` modunu kullanarak ayrıntılı `hata ayıklama` (`debugging`) süreçlerini öğrenin.
+*   **`Session Management` (Oturum Yönetimi):** `Prototip` aşamasındaki `session management` ile `üretim ortamı`ndaki (`production environment`) kalıcı ve güvenilir `session management` arasındaki farkları anlayın.
+*   **`Security Warning` (Güvenlik Uyarısı):** Kimlik doğrulama bilgisi içeren `URL`'leri ve diğer `gizli verileri` (`secrets`) her zaman `koruma` altına almanız gerektiğini unutmayın.
 
-İlk kez deniyorsanız buradan okuyun. Her cümle tek bir iş söyler. Acele etmeyin. Bir günü bitirmeden sonrakine geçmeyin.
+## Yapay Zeka Aracısı Kavramlarına Derinlemesine Bakış
 
-## Bu depoda ne var
+Bu rehber, basit "tek turda metin üreten sohbet" uygulamaları ile "hedefe ulaşmak için `tool`'ları stratejik olarak çağıran ve sonuçları `değerlendiren`" gelişmiş yapay zeka `agent`'ları arasındaki temel farkı vurgular. Bir `AI Agent`'ın temel bileşenleri şunlardır:
 
-Üç tür dosya vardır.
+*   **Karar Veren `Model`:** Aracının "beynini" oluşturan, durumu analiz eden, hedefleri belirleyen ve eylemler planlayan temel yapıdır. Genellikle `büyük dil modelleri` (`LLM`'ler) kullanılır.
+*   **Araçlar (`Tools`):** Aracının belirli görevleri yerine getirmek için kullandığı dış işlevler veya `API`'lerdir (örneğin, `web search` yapma, `hesaplama` yapma, `veritabanı`na erişme, bir `e-posta` gönderme). Bu `tool`'lar, `agent`'ın dış dünya ile etkileşim kurmasını sağlar.
+*   **Orkestrasyon (`Orchestration`):** Aracının adımlarını, `tool` çağrılarını ve hedefe ulaşma stratejisini yöneten süreçtir. Bu, `agent`'ın hangi `tool`'u ne zaman kullanacağına karar vermesini, sonuçları yorumlamasını ve bir sonraki adıma geçmesini içerir.
 
-Kurs, `5-day-ai-agents` klasöründedir. Her günün not defteri vardır. Not defteri, hücre hücre çalışan örnektir. Her günün ders notu da vardır. Ders notu, PDF’den Markdown’a çevrilmiştir. PDF de durur. Okumak için Markdown daha kolaydır.
+`GLOSSARY.md` dosyasında ayrıntılarıyla bulacağınız ek kavramlar:
 
-Sözlük, kökteki `GLOSSARY.md` dosyasıdır. Herkes aynı kelimeyi aynı anlamda kullanır. Skill dosyaları bu sözlüğe uyar.
+*   **Trajectory (`Yörünge`):** Bir aracının başlangıçtan hedefe ulaşana kadar gerçekleştirdiği tüm eylemlerin, gözlemlerin ve `state` (`durum`) değişikliklerinin kronolojik kaydıdır.
+*   **Session (`Oturum`):** Bir kullanıcı ile `agent` arasındaki belirli bir etkileşim dizisidir. Her `session`'ın kendine özgü bir `bağlam`ı (`context`) ve `yaşam döngüsü` (`lifecycle`) vardır ve `agent`'ın geçmiş etkileşimleri hatırlamasını sağlar.
+*   **Event (`Olay`):** Bir `session` içinde meydana gelen önemli bir eylem veya `state` (`durum`) değişikliğidir (örneğin, bir kullanıcının mesaj göndermesi, bir `agent`'ın belirli bir `tool`'u çağırması, bir `agent`'ın bir görevi tamamlaması).
+*   **State (`Durum`):** Bir `agent`'ın belirli bir anda sahip olduğu tüm bilgiler ve özelliklerdir. Bu, `memory` (`hafıza`) içeriği, mevcut hedef, kullanılan `tool`'lar ve alınan kararlar gibi öğeleri içerebilir.
+*   **Memory (`Hafıza`):** Aracının geçmiş etkileşimlerden ve öğrendiklerinden bilgi depolama ve geri çağırma yeteneğidir. Kısa vadeli (`current conversation context`) ve uzun vadeli (`knowledge base`) `memory` türleri bulunur.
+*   **Context Engineering (`Bağlam Mühendisliği`):** Modele gönderilen `istem`in (`prompt`) ve ilgili bilgilerin, `model`in en iyi `performans`ı göstermesi ve doğru kararları alması için dikkatlice seçilmesi, organize edilmesi ve `optimize` edilmesi sürecidir.
+*   **Compaction (`Sıkıştırma`):** `Memory`'deki veya `bağlam`daki (`context`) gereksiz, tekrarlayan veya daha az önemli bilgilerin azaltılarak daha verimli hale getirilmesidir. Bu, `model`in `bağlam penceresi`ni (`context window`) aşmadan önemli bilgileri korumasına yardımcı olur.
+*   **AgentTool:** Gelişmiş bir kavram olup, bir yapay zeka aracısının, daha karmaşık bir görevi yerine getirmek için başka bir uzman `agent`'ı bir `tool` (araç) olarak kullanmasını ifade eder.
+*   **İş Akışı `Agent` Türleri:**
+    *   `SequentialAgent` (`Sıralı Ajan`): Görevleri önceden belirlenmiş, sabit bir sırayla yürüten `agent`'lar. Her adım, bir önceki adımın sonucuna bağlıdır.
+    *   **`ParallelAgent` (`Paralel Ajan`):** Birden fazla görevi veya alt görevi eş zamanlı olarak yürüten `agent`'lar. Bu, görevlerin birbirinden bağımsız olduğu durumlarda `performans`ı artırır.
+    *   **`LoopAgent` (`Döngüsel Ajan`):** Belirli bir koşul karşılanana kadar görevleri veya adımları tekrar eden `agent`'lar. Genellikle bir hedefe ulaşana veya belirli bir `state` (`durum`) oluşana kadar kullanılır.
+*   **Model Bağlam Protokolü (`MCP`):** Farklı `servis`ler, `model`ler ve `tool`'lar arasında standartlaştırılmış bir iletişim kurarak, `agent` sistemlerinin farklı bileşenlerle daha kolay `entegre` edilmesini ve birlikte çalışmasını sağlayan bir `protokol`dür.
+*   **Ajanlar Arası İletişim (`A2A`):** Bir yapay zeka aracısının, daha karmaşık görevleri veya uzmanlık gerektiren durumları başka bir `agent`'a `devret`mesini (`delegate`) veya onunla iş birliği yapmasını ifade eder. Bu, `modüler` ve uzmanlaşmış `agent` sistemleri oluşturmaya olanak tanır.
+*   **Agent Card (`Ajan Kartı`):** Bir `agent`'ın yeteneklerini, sınırlamalarını, amaçlarını, mimarisini, kullanılan `model`leri, `tool`'ları ve sorumlu kullanım yönergelerini özetleyen kapsamlı bir bilgi kartıdır. `Şeffaflık` (`transparency`) ve yönetilebilirlik için önemlidir.
+*   **Agent Ops (`Ajan Operasyonları`):** `Agent`'ların `üretim ortamı`nda (`production environment`) izlenmesi (`monitoring`), yönetilmesi (`management`), sürdürülmesi (`maintenance`) ve `performans`larının `optimize` edilmesi ile ilgili `süreç`ler ve `tool`'lardır.
+*   **Eval Set (`Değerlendirme Seti`):** Bir `agent`'ın `performans`ını nesnel olarak ölçmek ve doğrulamak için kullanılan, gerçek dünya `senaryo`larını yansıtan özel olarak hazırlanmış `veri setleri`dir.
+*   **Golden Set (`Altın Set`):** Bilinen doğru veya ideal cevapları ve davranışları içeren, yüksek `kalite`li bir `değerlendirme veri seti`dir. Bir `agent`'ın ne kadar iyi `performans` gösterdiğini belirlemek için `referans` olarak kullanılır.
+*   **HITL (`Human-in-the-Loop` - İnsan Destekli Döngü):** Yapay zeka sistemlerinin `karar alma süreçleri`ne (`decision-making processes`) veya `iş akışları`na (`workflows`) insan müdahalesinin dahil edilmesidir. Bu, özellikle `hassas` (`sensitive`), `kritik` (`critical`) veya `belirsiz` (`ambiguous`) görevlerde `güvenlik` (`safety`), `etik uygunluk` (`ethical compliance`) ve `doğruluk` (`accuracy`) sağlamak için önemlidir.
 
-Skill dosyaları, `.cursor/skills` klasöründedir. Bunlar kursu bitirmek için değildir. Kendi projenizde ajan kurmak içindir.
+## Beş Günlük Kursun Detaylı İçeriği
 
-`repomix-output.md` diye bir dosya görürseniz onu commit etmeyin. O dosya, bütün deponun tek metin halinde kopyasıdır. İnceleme içindir. Kaynak değildir.
+Kursun her günü, ilgili konuları derinlemesine ele alan iki adet `Jupyter not defteri` ve bir adet detaylı `ders notu` (`Markdown` veya `PDF` formatında) içermektedir. Bu yapı, hem `teorik bilgi`yi hem de `pratik uygulama`yı bir arada sunarak öğrenme deneyiminizi en üst düzeye çıkarmayı hedefler.
 
-## Bilgisayarınızda ne olmalı
+**Önemli Not: Not defterlerini çalıştırırken lütfen aşağıdaki noktalara dikkat edin:**
 
-Python 3.10 veya daha yenisi gerekir. Bu makinede 3.14 da çalışır.
+*   Not defterlerinin hücrelerini **yukarıdan aşağıya doğru sırayla tek tek çalıştırmanız** şiddetle tavsiye edilir.
+*   **Tüm hücreleri aynı anda çalıştırmaktan kaçının.** Bu durum, `API kota limitleri`ne (`API rate limits`) takılma riskini artırabilir ve olası `hata`ların (`error`) veya `beklenmedik davranış`ların (`unexpected behavior`) kaynağını tespit etmeyi oldukça zorlaştırabilir. Her adımı anlayarak ve sonuçları gözlemleyerek ilerlemek, `öğrenme süreci`niz için çok daha faydalı olacaktır.
 
-Bir terminal açın. Proje klasörüne gidin.
+### Gün 1: Ajanlara Giriş ve Temel Mimariler
 
-```powershell
-cd c:\Users\isa\google_agentic
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install jupyterlab google-adk
-```
+Bu gün, yapay zeka `agent`'larının ne olduğunu, nasıl çalıştığını ve farklı yetenek seviyelerini kapsar. İlk `agent`'ınızı kurarak `pratik deneyim` (`hands-on experience`) kazanacaksınız.
 
-`Activate.ps1` hata verirse PowerShell’de betik çalıştırmaya izin yoktur. O pencere için şunu bir kez çalıştırın. Sonra etkinleştirmeyi tekrar deneyin.
+*   **Ajan Seviyeleri (`Capabilities`):**
+    *   **`Seviye 0 (Yalnızca Model)`:** Temel `dil modeli` (`language model`) yeteneklerini kullanan `agent`'lar. Sadece `metin` üretirler ve dış dünya ile etkileşim kurmazlar. Örneğin, basit bir `sohbet botu` (`chatbot`).
+    *   **`Seviye 1 (Araç Kullanımı)`:** Dış `tool`'ları (örneğin, `web search` yapma, `hesap makinesi`, `takvim API`'si) kullanarak belirli görevleri yerine getirebilen `agent`'lar.
+    *   **`Seviye 2 (Çok Adımlı Planlama)`:** Karmaşık görevleri mantıksal alt adımlara ayırarak `planlama` (`planning`) yapabilen ve bu adımları sırayla yürütebilen `agent`'lar.
+    *   **`Seviye 3 (Uzman Ajan Takımları)`:** Birden fazla uzmandan oluşan `agent`'ların (örneğin, bir `planlayıcı agent`, bir `araştırma agent`'ı, bir `kod yazma agent`'ı) bir araya gelerek işbirliği yaparak daha büyük hedeflere ulaşabildiği sistemler.
+    *   **`Seviye 4 (Öz-Değişim Yeteneği)`:** `Agent`'ların kendi davranışlarını, kurallarını veya hatta `kod`larını dinamik olarak değiştirebildiği ileri seviye `agent`'lar. **Bu seviye, `ürün şablonları` (`product templates`) için genellikle önerilmez** çünkü `öngörülemezlik` (`unpredictability`), `güvenlik açıkları` (`security vulnerabilities`) ve `kontrol zorlukları` (`control challenges`) gibi yüksek `risk`ler barındırabilir.
+*   **Uygulamalı Çalışmalar:**
+    *   Günün not defterleri, ilk yapay zeka aracınızı kurmayı ve basit bir `arama tool`'u entegre etmeyi adım adım öğretir.
+    *   Tek bir `agent` ile birden fazla `agent`'tan oluşan `takım yapıları` (`team structures`) arasındaki farkları, avantajlarını ve dezavantajlarını karşılaştırır.
+    *   Sabit sıralı (`SequentialAgent`), paralel çalışma (`ParallelAgent`) ve döngüsel (`LoopAgent`) mimariler gibi farklı `agent iş akışı` (`agent workflow`) tasarımlarını uygulamalı olarak inceler.
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-```
+### Gün 2: Ajan Araçları ve MCP (`Model Context Protocol`) ile Birlikte Çalışabilirlik
 
-Sanal ortam açıksa satırın başında `(.venv)` görürsünüz. Paketler bu ortama iner. Bilgisayarınızın genel Python’una karışmaz.
+Bu gün, `agent`'ların dış sistemlerle nasıl etkileşim kurduğunu ve daha karmaşık `tool`'ların nasıl tasarlanacağını derinlemesine ele alır.
 
-## Anahtar
+*   **Ajan Araçlarının Derinlemesine İncelenmesi:** `Agent`'ların görevlerini yerine getirmek için kullandığı `tool`'ların (örneğin, bir `veritabanı sorgulama tool`'u, bir `resim oluşturma tool`'u) tasarımı, uygulanması ve bu `tool`'ların verimli ve güvenli bir şekilde nasıl geliştirileceği konusunda en iyi `pratik`ler (`best practices`) sunulur.
+*   **Model Bağlam Protokolü (`MCP`):** Farklı `servis`ler, `model`ler ve `tool`'lar arasında standartlaştırılmış bir iletişim kurarak, `agent` sistemlerinin farklı bileşenlerle daha kolay `entegre` edilmesini ve birlikte çalışmasını sağlayan bir `protokol`dür. `MCP`'nin nasıl çalıştığı ve `agent`'larınızda nasıl kullanacağınız açıklanır.
 
-Ajan, Gemini modelini çağırır. Bunun için bir anahtar gerekir.
+### Gün 3: Bağlam Mühendisliği (`Context Engineering`), Oturumlar (`Sessions`) ve Hafıza Yönetimi (`Memory Management`)
 
-Anahtarı Google AI Studio’dan alın: https://aistudio.google.com/app/api-keys
+Bu gün, `agent`'ların etkileşim `bağlam`ını (`context`) nasıl anladığını, kullanıcılarla olan `session`'ları nasıl yönettiğini ve bilgiyi nasıl depolayarak geçmişi hatırladığını inceler.
 
-Anahtarı koda yazmayın. Dosyaya yapıştırıp GitHub’a göndermeyin. Ortam değişkeni olarak verin.
+*   **Bağlam Mühendisliği Teknikleri:** `Agent`'ın `karar alma süreci`ni (`decision-making process`) ve `yanıt`larını (`responses`) etkileyen bilgilerin (geçmiş `konuşmalar` (`conversations`), `kullanıcı tercihleri` (`user preferences`), güncel `olay`lar (`events`) vb.) nasıl toplanacağı, işleneceği ve `model`e nasıl sunulacağı konusunda detaylı `strateji`ler.
+*   **Oturum Yönetimi (`Session Management`):** `Agent`'ın bir `kullanıcı`nın (`user`) etkileşimini birden fazla `mesaj` (`message`) veya `eylem` (`action`) arasında `zaman içinde` (`over time`) nasıl takip ettiği ve sürdürdüğü. Kesintisiz ve tutarlı bir `kullanıcı deneyimi` (`user experience`) için `session management`'ın önemi.
+*   **Hafıza Mimarileri (`Memory Architectures`):** `Agent`'ın kısa vadeli (`anlık etkileşimler` (`instantaneous interactions`) için) ve uzun vadeli (`öğrenilen bilgiler` (`learned knowledge`) ve `kalıcı veriler` (`persistent data`) için) `memory` sistemlerinin nasıl tasarlandığı, uygulandığı ve bu `memory`'lerin nasıl `sorgulanıp` (`queried`) güncellendiği.
 
-PowerShell’de, o pencere kapanana kadar geçerli olan yol budur.
+### Gün 4: Ajan Kalitesi: Gözlemlenebilirlik (`Observability`) ve Değerlendirme (`Evaluation`)
 
-```powershell
-$env:GOOGLE_API_KEY = "buraya-anahtar"
-```
+Bu gün, `üretim ortamı`nda (`production environment`) çalışan `agent`'ların `performans`ını ve `güvenilirlik`ini (`reliability`) sağlamak için gerekli olan `gözlem` (`observation`) ve `değerlendirme` (`evaluation`) yöntemlerini ele alır.
 
-Kalıcı tutmak isterseniz bir `.env` dosyası kullanın. `.env` zaten yok sayılır. Yine de `git status` çıktısında görünmediğinden emin olun.
+*   **Ajan Gözlemlenebilirliği (`Agent Observability`):** `Agent`'ın `çalışma zamanı`ndaki (`runtime`) davranışlarını, aldığı kararları, kullandığı `tool`'ları, `performans`ını ve olası `hata`larını (`errors`) izleme (`monitoring`), `loglama` (`logging`) ve `analiz etme` (`analyzing`) yolları. Bu, `sorun giderme` (`troubleshooting`) ve `optimizasyon` (`optimization`) için `kritik öneme` sahiptir.
+*   **Ajan Değerlendirme Metodolojileri (`Agent Evaluation Methodologies`):** Bir `agent`'ın `doğruluk` (`accuracy`), `verimlilik` (`efficiency`), `güvenilirlik` (`reliability`), `güvenlik` (`safety`) ve istenen `çıktı`ları (`outputs`) üretme yeteneğini `objektif` olarak ölçmek için kullanılan çeşitli `metrik`ler (`metrics`), `çerçeve`ler (`frameworks`) ve `test yaklaşımları` (`testing approaches`) (örneğin, `Eval Set`, `Golden Set` kullanımı).
 
-Kaggle’da çalışıyorsanız anahtarın adı `GOOGLE_API_KEY` olan bir sırdır. Not defterleri bunu `UserSecretsClient` ile okur.
+### Gün 5: Prototiplemeden Üretime: Ajanlar Arası İletişim (`A2A`) ve Dağıtım (`Deployment`)
 
-Anahtar olmadan kurulum biter. İlk gerçek cevap anahtarla gelir.
+Bu gün, geliştirilen `agent`'ların gerçek dünya `uygulama`larına (`applications`) nasıl `entegre` edildiğini, birbirleriyle nasıl etkileşim kurduğunu ve `üretim ortamları`na nasıl güvenli ve `ölçeklenebilir` (`scalable`) bir şekilde `dağıtıldığı`nı (`deployed`) kapsar.
 
-## Bir sohbet ile bir ajan aynı şey değildir
+*   **Ajanlar Arası İletişim (`A2A`):** Karmaşık görevleri çözmek veya birden fazla `uzmanlık alanı`nı (`domain expertise`) birleştirmek için birden fazla `agent`'ın `koordineli` (`coordinated`) bir şekilde nasıl iletişim kurduğu ve `işbirliği` (`collaboration`) yaptığı.
+*   **Ajan Dağıtımı (`Agent Deployment`):** Geliştirilen `agent`'ların `üretim ortamları`nda güvenli, `ölçeklenebilir` ve yönetilebilir bir şekilde (örneğin, `bulut platformları`na (`cloud platforms`) veya `API servisleri` (`API services`) olarak) nasıl `dağıtılacağı` (`deployed`). `Rollout stratejileri`, `izleme` (`monitoring`) ve `sürüm kontrolü` (`version control`) gibi konular ele alınır.
 
-Bir sohbet kutusu tek turda metin döner. Siz sorarsınız. Model yazar. İş biter.
-
-Bir ajan hedefe kadar gider. Düşünür. Bir araç çağırır. Aracın sonucunu okur. Gerekirse tekrar çağırır. Sonra durur.
-
-Örnek düşünün. “Yarın İstanbul’da yağmur var mı?” sorusu tek başına bir ajan değildir. Model bunu kendi hafızasından uydurabilir.
-
-Aynı soru bir ajan olur, şu üç parça varsa.
-
-Model, ne yapacağına karar verir. Bu beyindir. Canlı hava durumunu kendisi çekmez.
-
-Araç, hava durumunu bir servisten getirir. Bu eldir. Araç ya bilgi getirir ya da bir iş yapar. İkisini birden karma karışık yapmaz.
-
-Orkestrasyon, sıradaki adımı seçer. Düşün. Çağır. Sonucu gör. Dur. Bu sinir sistemidir.
-
-Bu üçü yoksa elinizde yalnızca bir prompt vardır. Prompt, modele yazdığınız talimattır.
-
-## Kelimeler
-
-Bu kelimeler kursun her yerinde geçer. Ezberlemeyin. Bir ajan yazarken geri dönün.
-
-**Agent.** Hedefe varana kadar plan yapan, iş yapan ve sonucu kullanan sistemdir.
-
-**Model.** Karar veren çekirdektir. Bu depodaki örnekler `gemini-2.5-flash-lite` kullanır. Model tek başına dosya silmez ve arama yapmaz.
-
-**Tool.** Modelin çağırabildiği fonksiyondur. Ücret bakmak bir araçtır. Sipariş vermek başka bir araçtır. Her aracın bir görevi vardır.
-
-**Orchestration.** Bir sonraki adımı seçen döngüdür. Model serbest seçebilir. Ya da sıra önceden sabittir.
-
-**Trajectory.** Cevaba giden bütün yoldur. Düşünceler, araç çağrıları ve dönen sonuçlar bu yoldadır. Son cümle yolun yalnızca son adımıdır. Notu yalnızca son cümleye vermeyin.
-
-**Session.** Bir kullanıcının bir ajanla süren tek konuşmasıdır. Başka kullanıcıyla paylaşılmaz. Aynı kullanıcı yeni bir oturum açarsa bu, yeni bir konuşmadır.
-
-**Event.** Oturumdaki tek satırdır. Sizin cümleniz bir satırdır. Modelin cevabı bir satırdır. Araç çağrısı bir satırdır. Aracın dönüşü bir satırdır.
-
-**State.** O oturumun karalama defteridir. Anahtar ve değer tutar. Örnek: `user:name` = `Ayşe`. Konuşma bitince bu defterin ömrü biter. Bu, bellek değildir.
-
-**Memory.** Oturum kapandıktan sonra duran olgudur. Yarınki oturum onu geri getirebilir. “Ayşe çayı şekersiz içer” bir bellektir. Bunu belleğe yazmazsanız yarın ajan hatırlamaz.
-
-**Context engineering.** Bu turda modele giden paketi kurmaktır. Pakette talimat, geçmiş, state, bellek, araç sonuçları ve belgeler vardır. Hepsini yığmak iyi paket değildir. Her parçanın orada bir nedeni olmalıdır.
-
-**Compaction.** Eski turları kısa bir özete çevirmektir. Pencere dolmasın diye yapılır. Geçmiş silinmez. Modele giden metin kısalır.
-
-**AgentTool.** Bir uzman ajanı, araç gibi sarmaktır. Çağıran ajan kontrolde kalır. Uzmanın sonucu ona geri döner. Konuşmayı uzmana teslim etmez.
-
-**Workflow agent.** Sırayı prompt ile seçmeyen yöneticidir. Üçü vardır. `SequentialAgent` işi sabit sırada yapar. `ParallelAgent` bağımsız işleri birlikte yapar. `LoopAgent` bir işi, onay veya üst sınıra kadar tekrarlar.
-
-**MCP.** Model Context Protocol. Ajanın, dış bir sunucudaki araçları çağırması için ortak dildir. Her sistem için ayrı istemci yazmazsınız.
-
-**A2A.** Agent2Agent. Bir ajanın, başka bir serviste çalışan ajana iş vermesidir. MCP bir fonksiyon çağırır. A2A bir ajana iş verir. İkisini karıştırmayın.
-
-**Agent card.** A2A ajanının kimlik kartıdır. Adres `/.well-known/agent-card.json` olur. Kartta ad, açıklama ve beceriler vardır.
-
-**Agent Ops.** Ajanı yazılım gibi işletmektir. Ölçersiniz. İzi okursunuz. Not verirsiniz. Kötü not varsa kullanıcıya çıkmaz.
-
-**Eval set.** Kayıtlı denemelerdir. Her denemede kullanıcı cümlesi, beklenen cevap ve beklenen araç çağrıları vardır.
-
-**Golden set.** Yayın öncesi geçmesi zorunlu olan seçilmiş deneme kümesidir. Üretimde bozulan bir örnek bu kümeye eklenir.
-
-**HITL.** Human in the loop. İnsan döngüdedir. Geri alınması zor bir işte kişi onaylar. Ya da otomatik hakemin kullanacağı ölçütü kişi yazar.
-
-## Beş gün
-
-Her gün iki not defteri ve bir ders notu içerir. Not defterini yukarıdan aşağı, hücre hücre çalıştırın. “Hepsini çalıştır” demeyin. Kota dolabilir. Hata olursa hangi hücrede olduğunu görürsünüz.
-
-Kaggle’da not defteri hazır gelir. ADK orada yüklüdür. Kendi bilgisayarınızda yukarıdaki kurulumu yapın.
-
-### Gün 1. Ajan nedir
-
-Dosyalar `5-day-ai-agents/Day1` içindedir.
-
-`Introduction to Agents.md` ders notudur. Ajanın parçalarını anlatır. Seviyeler buradadır.
-
-Seviye 0 yalnızca modeldir. Tek turda metin yazar.
-
-Seviye 1 araç kullanır. Bir seferde bir iş yapar.
-
-Seviye 2 çok adımlı plan kurar.
-
-Seviye 3 birkaç uzman ajanı bir araya getirir.
-
-Seviye 4 kendi ajanlarını değiştiren araştırma hedefidir. Ürün işi için burada durmayın. Kurs bunu ürün şablonu saymaz.
-
-`day-1a-from-prompt-to-action.ipynb` ilk ajanı kurar. Arama aracı ekler. Bir tur çalıştırır.
-
-`day-1b-agent-architectures-eb9049.ipynb` tek ajan ile takımı ayırır. Sabit sıra, paralel iş ve döngü buradadır.
-
-Bu günün sonunda şunu söyleyebilmelisiniz. Bu sistem ajan mı, yoksa tek prompt mu. Kaçıncı seviyede. Hangi model. Hangi araçlar. Sırayı kim seçiyor.
-
-### Gün 2. Araç ve MCP
-
-Dosyalar `5-day-ai-agents/Day2` içindedir.
-
-Ders notu `Agent Tools & Interoperability with Model Context Protocol (MCP).md` dosyasıdır.
-
-`day-2a-agent-tools.ipynb` fonksiyon aracı, uzman ajanı araç yapma ve kod çalıştırma örnekleridir.
-
-`day-2b-agent-tools-best-practices-2af7d1.ipynb` iyi araç yazmayı anlatır. Ad, şema, yan etki ve hata metni burada önemlidir.
-
-İyi bir araç şunları yapar.
-
-Görevi tek cümleyle söyler. Argümanların tipi yazılır. Dönüş ya başarıdır ya da hatadır. Hata metni, modele sonraki adımı söyler. Geri alınması zor işte kişiye sorar. Bu, HITL’dir.
-
-MCP ile dış sunucuya bağlanırsınız. `tool_filter` izin listesidir. Sunucunun bütün araçlarını açmayın. Araç metni de modelin okuduğu metindir. Kötü bir metin, modeli yanlış işe itebilir.
-
-### Gün 3. Oturum, bağlam ve bellek
-
-Dosyalar `5-day-ai-agents/Day3` içindedir.
-
-Ders notu `Context Engineering_ Sessions & Memory.md` dosyasıdır.
-
-`day-3a-agent-sessions (1).ipynb` oturumu tutar. Dosya adındaki `(1)` bilerek durur. Yeniden adlandırmayın. Kurs böyle gelmiştir.
-
-`day-3b-agent-memory.ipynb` oturum bitince kalan olguyu yazar ve sonra arar.
-
-Üç raf vardır. Karıştırmayın.
-
-State, bu konuşmanın karalama defteridir.
-
-Session, bu konuşmanın bütün satırlarıdır.
-
-Memory, yarın da lazım olan olgudur.
-
-Uzun konuşma pencereyi doldurur. Compaction eski satırları özete çevirir. State ile bellek bunun yerine geçmez.
-
-`load_memory` modeli aramaya bırakır. Ucuzdur. Model aramayı unutabilir.
-
-`preload_memory` her turdan önce arar. Olgu oradadır. Token her tur harcanır.
-
-Başlangıçta `load_memory` yeter. Unutulan bir olgu pahalıya patlıyorsa `preload_memory` kullanın.
-
-### Gün 4. İz ve not
-
-Dosyalar `5-day-ai-agents/Day4` içindedir.
-
-Ders notu `Agent Quality.md` dosyasıdır.
-
-`day-4a-agent-observability.ipynb` log, iz ve ADK web arayüzünü gösterir.
-
-`day-4b-agent-evaluation.ipynb` deneme kümesi ve `adk eval` komutunu gösterir.
-
-Ajan yanlış cevap verince prompt’u hemen değiştirmeyin. Önce yolu okuyun. Yol, trajectory’dir.
-
-Log, bir anda ne olduğunu söyler.
-
-Trace, adımların sırasını söyler. Hangi araç, hangi argüman, ne döndü.
-
-Metric, gecikme ve hata oranı gibi sayılardır.
-
-Bir deneme kümesinde üç şey durur. Kullanıcının cümlesi. Beklenen son cevap. Beklenen araç çağrıları.
-
-`tool_trajectory_avg_score` araç adı ve argüman uyumuna bakar.
-
-`response_match_score` metin benzerliğine bakar. Doğruluğun kanıtı değildir. Aynı doğru cevap başka kelimelerle yazılabilir.
-
-Golden set, kullanıcı görmeden önce geçmesi gereken kümedir. Üretimde kırılan bir örnek bu kümeye eklenir. Bir sonraki sürüm aynı yerden kırılmasın diye.
-
-### Gün 5. Başkasının ajanı ve yayın
-
-Dosyalar `5-day-ai-agents/Day5` içindedir.
-
-Ders notu `Prototype to Production.md` dosyasıdır.
-
-`day-5a-agent2agent-communication.ipynb` A2A ile uzak ajanı çağırır.
-
-`day-5b-agent-deployment.ipynb` prototipi servise taşır.
-
-Aynı programın içindeki uzman için `AgentTool` veya `sub_agents` yeter.
-
-Başka bir sürecin ajanı için A2A kullanılır. Karşı taraf bir kart yayınlar. Siz `RemoteA2aAgent` ile o karta bağlanırsınız.
-
-Yayın kapısı vardır. Yeni sürüm, golden set’i geçmeden kullanıcıya çıkmaz. Prompt değişikliği de sürümdür. Araç şemasındaki değişiklik de sürümdür.
-
-Küçük bir trafik payına çıkın. İzleri okuyun. Bozulursa önceki sürüme dönün. Yeni bozulmayı deneme kümesine ekleyin.
-
-Bu depodaki örnekler önce yerelde çalışır. Vertex AI Agent Engine, Cloud Run ve GKE üretim seçenekleridir. Fatura açılmasın diye deneme dağıtımını silin. `min_instances` değerini 0 yapmak, kullanılmayan kopyayı kapatır.
-
-## Skill dosyaları nasıl çalışır
-
-`.cursor/skills` altındaki her klasör bir tariftir. Tarifin adı `SKILL.md` dosyasındadır.
-
-İki tür vardır.
-
-Birincisi sizin yazdığınız komuttur. Sohbette `/design-agent` gibi yazarsınız. Bu dosya işi yapmaz. Asıl tarife işaret eder ve durur. Başında `disable-model-invocation: true` yazar. Ajan bu dosyayı kendiliğinden açmaz. Siz çağırırsınız.
-
-İkincisi asıl tariftir. Adımlar oradadır. Her adımın sonunda `Done when` vardır. Bu, işin bittiğini söyleyen kontrol cümlesidir. Ajan, görev o tarife uyunca bu dosyayı kendisi açabilir.
-
-Uzun tablolar `reference.md` içindedir. Ana tarif kısa kalsın diye oraya konmuştur.
-
-Komutların listesi `.cursor/skills/google-agent-skills/SKILL.md` dosyasındadır. Takıldığınızda oraya bakın.
-
-### Kurma
-
-| Ne yapmak üzeresiniz | Ne yazarsınız | Asıl tarif |
-| --- | --- | --- |
-| Ajanın ne olduğuna karar vermek | `/design-agent` | `defining-an-agent` |
-| Takımın şeklini seçmek | `/choose-agent-workflow` | `choosing-agent-architecture` |
-| Kodu yazıp bir tur çalıştırmak | `/scaffold-adk-agent` | `building-with-adk` |
-| Araç eklemek | `/add-agent-tools` | `designing-agent-tools` |
-| MCP sunucusuna bağlanmak | `/connect-mcp` | `using-mcp` |
-
-### Geliştirme
-
-| Ne yapmak üzeresiniz | Ne yazarsınız | Asıl tarif |
-| --- | --- | --- |
-| Modele bu turda ne gideceğine karar vermek | `/engineer-agent-context` | `engineering-agent-context` |
-| Konuşmayı turlar arasında tutmak | `/add-agent-session` | `managing-agent-sessions` |
-| Oturum bitince olguyu saklamak | `/add-agent-memory` | `persisting-agent-memory` |
-| Bir hatanın yolunu okumak | `/trace-agent` | `observing-agents` |
-| Yolu notlamak | `/eval-agent` | `evaluating-agents` |
-
-### Yayın
-
-| Ne yapmak üzeresiniz | Ne yazarsınız | Asıl tarif |
-| --- | --- | --- |
-| Başka servisteki ajanı çağırmak | `/connect-a2a` | `connecting-agents` |
-| Kapıdan geçirip dağıtmak | `/ship-agent` | `deploying-agents` |
-
-Bu komutlar, proje `.cursor/skills` klasörünü görüyorsa çalışır. Başka bir projede kullanmak için bu klasörü o projenin içine kopyalayın. Aynı yollar kalsın. Sonra o projeyi Cursor’da açın.
-
-## Sıfırdan ilk çalışan ajana
-
-Bu yol, Gün 1’in küçültülmüş halidir. Her adımı bitirin. Sonrakine ondan sonra geçin.
-
-1. Sanal ortamı açın. `google-adk` yüklü olsun. `GOOGLE_API_KEY` tanımlı olsun.
-
-2. `GLOSSARY.md` dosyasını bir kez okuyun. Anlamadığınız kelimeyi işaretleyin. Kod yazarken oraya dönün.
-
-3. Cursor sohbetinde `/design-agent` yazın. Ajanın seviyesini, modelini, araçlarını ve orkestrasyonunu söyleyin. Seviye 1 ile başlayın. Tek araç yeter.
-
-4. İş tek bir ajanın işiyse `/choose-agent-workflow` yazmayın. İki ayrı talimat veya iki ayrı araç seti varsa yazın. Sabit sıra gerekiyorsa `SequentialAgent` seçilir. “Önce şunu yap, sonra bunu” cümlesi sıra garantisi değildir.
-
-5. `/scaffold-adk-agent` yazın. Bitti sayılması için şunlar gerekir. Ajanın adı vardır. Modeli vardır. Talimatı vardır. Araç listesi vardır. 429 hatalarına karşı yeniden deneme ayarı vardır. `run_debug` veya `adk web` ile bir tur cevap dönmüştür.
-
-6. Cevap geldiyse durup okuyun. Araç çağrıldı mı. Çağrılmadıysa iki yere bakın. Araç `tools` listesinde mi. Talimat, ne zaman çağrılacağını söylüyor mu.
-
-7. Ancak ondan sonra `/add-agent-tools` ile kendi fonksiyonunuzu ekleyin. Dönüş sözlüğü `status` taşısın. Hata durumunda `error_message` bir sonraki adımı söylesin.
-
-İlk turda yayın, bellek ve A2A yoktur. Onlar sonraki günlerin işidir. İlk tur “merhaba” deyip arama yapabilen küçük bir ajandır. Bu, çalışan bir temeldir.
-
-## Bozulunca ne yaparsınız
-
-Prompt’u hemen büyütmeyin. `/trace-agent` yazın.
-
-Log seviyesini DEBUG yapın. ADK web arayüzünde Events sekmesine bakın. Model isteğini, araç listesini, çağrıyı ve sonucu bulun. Kırılan adımı adlandırın.
-
-Sık kırılma şudur. Araç `str` bekler. Talimat liste gönderir. İz, yanlış çağrıyı gösterir. Tipi düzeltin.
-
-`adk web` açıkken aynı porta ikinci sunucu başlamaz. Önce eskisini kapatın.
-
-Kaggle’da `adk web` bir vekil adres verir. O adreste jeton vardır. Adresi kimseyle paylaşmayın.
-
-## Kendi projenize taşıma
-
-Yeni bir klasör açın. Sanal ortam kurun. Anahtarı ortam değişkenine koyun.
-
-Bu depodaki `.cursor/skills` klasörünü yeni klasöre kopyalayın. `GLOSSARY.md` dosyasını da kopyalayın. Skill’ler o sözlüğe güvenir.
-
-Cursor’da yeni klasörü açın. `/design-agent` ile başlayın. Sonra `/scaffold-adk-agent`.
-
-Kurs not defterlerini yeni projeye taşımayın. Onlar ders örneğidir. Sizin ajanınız kendi `agent.py` dosyasında durur.
-
-Bir davranışı bitirin. Sonra ikinci davranışı ekleyin. Aynı günde bellek, değerlendirme ve yayın eklemeyin. Her biri ayrı bir turdur. Skill’ler de böyle bölünmüştür.
-
-## Sık takıldığınız yerler
-
-429 hatası, çok sık istek attığınızı söyler. Örneklerdeki yeniden deneme ayarını kullanın. Hücreleri art arda, beklemeden çalıştırmayın.
-
-Boş araç listesi, modelin elinin olmadığını söyler. `tools=[...]` satırını kontrol edin.
-
-Ajan yarını hatırlamıyorsa bellek yazılmamıştır. `memory_service` tek başına yetmez. Oturumu belleğe eklemek ve bir arama aracı vermek de gerekir.
-
-İki kullanıcı aynı olguyu görüyorsa oturum veya bellek karışmıştır. Her oturum uygulama, kullanıcı ve oturum kimliği ile ayrılır.
-
-“Önce A, sonra B” bazen atlanır. Sıra şartsa workflow agent kullanın.
-
-Onaylı sipariş ikinci çalıştırmada sıfırdan başlıyorsa aynı çağrı sürdürülmemiştir. `designing-agent-tools` içindeki devam bloğunu izleyin. Yeni bir koşu, eski onayı getirmez.
-
-## Ne gönderilmez
-
-GitHub’a şunları koymayın.
-
-`.env` ve içindeki anahtar.
-
-`repomix-output.md`.
-
-Sanal ortam klasörü `.venv`.
-
-Kaggle vekil adresi ve jeton.
-
-Başkasının oturum verisi.
-
-Commit etmeden önce `git status` çalıştırın. Anahtar görünen bir dosya listede varsa onu çıkarın.
-
-## Lisans
-
-Not defterleri Apache 2.0 ile gelir. Telif 2025 Google LLC’dir. Türev işte bu başlığı saklayın.
-
-Skill metinleri bu not defterlerinden uyarlanmış çalışma kurallarıdır. Dersin yerine geçmez. Ders notlarının uzun metnini başka yere olduğu gibi kopyalamayın. Kısa kod örneği ve iş tarifi yeter.
-
-Kursun kendi açıklaması `5-day-ai-agents/Readme.md` dosyasındadır. O dosya İngilizcedir. Bu sayfa, ilk kez deneyen biri için Türkçe yürüyüş yoludur.
+Bu kapsamlı kurs, `junior` geliştiricilere yapay zeka `agent`'ları dünyasında sağlam bir `temel` (`foundation`) ve `pratik beceriler` (`practical skills`) kazandırarak, modern `AI uygulama`ları (`AI applications`) geliştirmeleri için gerekli `bilgi birikimi`ni (`knowledge`) sunmayı hedeflemektedir.
